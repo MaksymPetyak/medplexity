@@ -6,8 +6,9 @@ from medplexity.evaluators.evaluation_summary import EvaluationResult
 
 
 class Evaluator(abc.ABC):
-
     @abc.abstractmethod
-    def evaluate(self, dataset: Dataset, max_items: Optional[int] = None) -> EvaluationResult:
+    def evaluate(
+        self, dataset: Dataset, max_items: Optional[int] = None
+    ) -> EvaluationResult:
         """Evaluate the LLM on the dataset and return the results."""
         raise NotImplementedError("Evaluator evaluate method is not implemented")

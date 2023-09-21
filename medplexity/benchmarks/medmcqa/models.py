@@ -5,8 +5,9 @@ from pydantic import BaseModel
 
 
 class ChoiceType(str, Enum):
-    single = 'single'
-    multi = 'multi'
+    single = "single"
+    multi = "multi"
+
 
 class MedMCQAQuestion(BaseModel):
     id: str
@@ -23,4 +24,3 @@ class MedMCQAQuestion(BaseModel):
     exp: Optional[str] = None
     subject_name: str
     topic_name: Optional[str] = None
-

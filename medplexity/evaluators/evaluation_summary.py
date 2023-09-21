@@ -12,9 +12,11 @@ class EvaluationResult(BaseModel):
 
     correct: bool
 
+
 class FailedEvaluation(BaseModel):
     datapoint: Any
     error: str
+
 
 class EvaluationSummary(BaseModel):
     evaluation_results: list[EvaluationResult]

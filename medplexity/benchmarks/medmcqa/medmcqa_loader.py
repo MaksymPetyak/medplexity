@@ -10,7 +10,7 @@ from medplexity.benchmarks.medmcqa.models import MedMCQAQuestion
 DATASET_TYPE = Literal["train", "test", "validation"]
 
 
-class MedMCQALoader():
+class MedMCQALoader:
     """Class to load questions from https://github.com/medmcqa/medmcqa"""
 
     def __init__(self, dataset_directory: str | Path | None = None):
@@ -29,7 +29,6 @@ class MedMCQALoader():
         else:
             return self.load_questions_from_file(dataset_type)
 
-
     def download_dataset_and_load_questions(self, dataset_type: DATASET_TYPE):
         medmcqa_dataset = load_dataset("medmcqa", split=dataset_type)
 
@@ -37,19 +36,20 @@ class MedMCQALoader():
 
         return questions
 
-    def load_questions_from_file(self, dataset_type: DATASET_TYPE) -> List[MedMCQAQuestion]:
+    def load_questions_from_file(
+        self, dataset_type: DATASET_TYPE
+    ) -> List[MedMCQAQuestion]:
         file_path = self.dataset_directory / Path(f"{dataset_type}.json")
         if not file_path.exists():
             raise ValueError(f"Path to file {str(file_path)} doesn't exist")
 
-        with open(file_path, 'r') as f:
+        with open(file_path, "r") as f:
             raw_data = f.read()
 
             # the file is JSON but delimited by new-line
-            lines = [line for line in raw_data.split('\n') if line]
+            lines = [line for line in raw_data.split("\n") if line]
             objects = [json.loads(line) for line in lines]
 
         questions = [MedMCQAQuestion(**object) for object in objects]
 
         return questions
-

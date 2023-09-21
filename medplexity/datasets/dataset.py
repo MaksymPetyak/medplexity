@@ -2,10 +2,12 @@ from typing import Any, List
 
 from pydantic import BaseModel
 
+
 class DataPoint(BaseModel):
     input: Any
     expected_output: Any
     metadata: Any
+
 
 class Dataset:
     """Dataset objects can be iterated through and evaluated against"""

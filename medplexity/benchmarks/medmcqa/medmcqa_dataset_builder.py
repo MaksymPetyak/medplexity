@@ -20,8 +20,7 @@ class MedMCQADataPoint(DataPoint):
     metadata: MedMCQAOutputMetadata
 
 
-
-class MedMCQADatasetBuilder():
+class MedMCQADatasetBuilder:
     def __init__(self, loader: MedMCQALoader | None = None):
         self.loader = loader or MedMCQALoader()
 
@@ -32,13 +31,13 @@ class MedMCQADatasetBuilder():
             MedMCQADataPoint(
                 input=MedMCQAInput(
                     question=question.question,
-                    options=[question.opa, question.opb, question.opc, question.opd]
+                    options=[question.opa, question.opb, question.opc, question.opd],
                 ),
                 expected_output=question.cop,
                 metadata=MedMCQAOutputMetadata(
                     explanation=question.exp,
                     subject_name=question.subject_name,
-                )
+                ),
             )
             for question in questions
             if question.cop is not None

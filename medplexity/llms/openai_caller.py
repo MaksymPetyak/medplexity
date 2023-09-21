@@ -5,6 +5,7 @@ import openai
 
 from medplexity.llms.llm import LLM
 
+
 class OpenAI(LLM):
     """OpenAI LLM using BaseOpenAI Class.
 
@@ -15,6 +16,7 @@ class OpenAI(LLM):
      "gpt-4-32k-0314","gpt-3.5-turbo", "gpt-3.5-turbo-0301"].
 
     """
+
     api_token: str
     temperature: float = 0
     max_tokens: int = 1000

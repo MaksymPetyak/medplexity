@@ -11,7 +11,7 @@ class EvaluationAdapterChain:
         self,
         llm: LLM,
         input_adapter: Optional[Callable[[DataPoint], str]] = None,
-        output_adapter: Optional[Callable[[str], Any]] = None
+        output_adapter: Optional[Callable[[str], Any]] = None,
     ):
         self.input_adapter = input_adapter
         self.output_adapter = output_adapter
@@ -19,7 +19,6 @@ class EvaluationAdapterChain:
         self.llm = llm
 
     def __call__(self, input: Any):
-
         if self.input_adapter:
             input = self.input_adapter(input)
 

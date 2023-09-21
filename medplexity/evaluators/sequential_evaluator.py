@@ -15,13 +15,15 @@ class SequentialEvaluator(Evaluator):
         self,
         chain: Chain,
         format_checker: Optional[Callable[[str], bool]] = None,
-        comparator = None,
+        comparator=None,
     ):
         self.chain = chain
         self.format_checker = format_checker
         self.comparator = comparator
 
-    def evaluate(self, dataset: Dataset, max_items: Optional[int] = None) -> EvaluationSummary:
+    def evaluate(
+        self, dataset: Dataset, max_items: Optional[int] = None
+    ) -> EvaluationSummary:
         results = EvaluationSummary(
             evaluation_results=[],
             failed_evaluations=[],
@@ -31,7 +33,6 @@ class SequentialEvaluator(Evaluator):
         for data_point in tqdm(dataset):
             if max_items and count > max_items:
                 break
-
 
             try:
                 llm_output = self.chain(data_point.input)
@@ -44,7 +45,9 @@ class SequentialEvaluator(Evaluator):
 
                 are_outputs_equal = False
                 if self.comparator:
-                    are_outputs_equal = self.comparator(data_point.expected_output, llm_output)
+                    are_outputs_equal = self.comparator(
+                        data_point.expected_output, llm_output
+                    )
                 else:
                     are_outputs_equal = data_point.expected_output == llm_output
 
@@ -55,7 +58,8 @@ class SequentialEvaluator(Evaluator):
                         expected_output=data_point.expected_output,
                         output=llm_output,
                         correct=are_outputs_equal,
-                ))
+                    )
+                )
             except Exception as e:
                 results.failed_evaluations.append(
                     FailedEvaluation(
