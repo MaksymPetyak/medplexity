@@ -13,6 +13,11 @@ datasets = "^2.14.5"
 
 [tool.poetry.dev-dependencies]
 jupyter = "^1.0.0"
+black = "^23.3.0"
+pre-commit = "^3.2.2"
+pytest = "^7.3.1"
+pytest-mock = "^3.10.0"
+pytest-env = "^0.8.1"
 
 [build-system]
 requires = ["poetry-core"]
