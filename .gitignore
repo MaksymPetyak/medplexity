@@ -1,0 +1,40 @@
+# .env
+.env
+
+# __pycache__
+__pycache__
+.pytest_cache
+
+# ruff cache
+.ruff_cache
+
+# macOS
+.DS_Store
+
+# build
+build
+dist
+pandasai.egg-info
+
+#venv
+/venv
+.venv
+
+# command line
+/pandasai_cli.egg-info
+
+# pycharm
+.idea/
+.idea
+
+# cache
+cache/
+
+# exports
+exports/
+
+# logs
+*.log
+
+# vscode
+.vscode
