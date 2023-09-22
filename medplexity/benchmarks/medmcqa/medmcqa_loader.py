@@ -7,7 +7,7 @@ from datasets import load_dataset
 from medplexity.benchmarks.medmcqa.models import MedMCQAQuestion
 
 
-DATASET_TYPE = Literal["train", "test", "validation"]
+MedMCQADatasetTypes = Literal["train", "test", "validation"]
 
 
 class MedMCQALoader:
@@ -23,13 +23,15 @@ class MedMCQALoader:
 
         self.dataset_directory: Path = dataset_directory
 
-    def load_questions(self, dataset_type: DATASET_TYPE) -> List[MedMCQAQuestion]:
+    def load_questions(
+        self, dataset_type: MedMCQADatasetTypes
+    ) -> List[MedMCQAQuestion]:
         if self.dataset_directory is None:
             return self.download_dataset_and_load_questions(dataset_type)
         else:
             return self.load_questions_from_file(dataset_type)
 
-    def download_dataset_and_load_questions(self, dataset_type: DATASET_TYPE):
+    def download_dataset_and_load_questions(self, dataset_type: MedMCQADatasetTypes):
         medmcqa_dataset = load_dataset("medmcqa", split=dataset_type)
 
         questions = [MedMCQAQuestion(**row) for row in medmcqa_dataset]
@@ -37,7 +39,7 @@ class MedMCQALoader:
         return questions
 
     def load_questions_from_file(
-        self, dataset_type: DATASET_TYPE
+        self, dataset_type: MedMCQADatasetTypes
     ) -> List[MedMCQAQuestion]:
         file_path = self.dataset_directory / Path(f"{dataset_type}.json")
         if not file_path.exists():

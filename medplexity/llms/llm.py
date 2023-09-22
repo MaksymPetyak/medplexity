@@ -1,7 +1,7 @@
-from abc import abstractmethod
+import abc
 
 
-class LLM:
+class LLM(abc.ABC):
     """Base class for LLMs."""
 
     def __call__(self, instruction: str, suffix: str = "") -> str:

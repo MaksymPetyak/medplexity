@@ -1,6 +1,9 @@
 from pydantic import BaseModel
 
-from medplexity.benchmarks.medmcqa.medmcqa_loader import MedMCQALoader, DATASET_TYPE
+from medplexity.benchmarks.medmcqa.medmcqa_loader import (
+    MedMCQALoader,
+    MedMCQADatasetTypes,
+)
 from medplexity.datasets.dataset import DataPoint
 
 
@@ -24,7 +27,9 @@ class MedMCQADatasetBuilder:
     def __init__(self, loader: MedMCQALoader | None = None):
         self.loader = loader or MedMCQALoader()
 
-    def build_dataset(self, dataset_type: DATASET_TYPE) -> list[MedMCQADataPoint]:
+    def build_dataset(
+        self, dataset_type: MedMCQADatasetTypes
+    ) -> list[MedMCQADataPoint]:
         questions = self.loader.load_questions(dataset_type)
 
         data_points = [
