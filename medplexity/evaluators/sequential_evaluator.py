@@ -22,7 +22,10 @@ class SequentialEvaluator(Evaluator):
         self.comparator = comparator
 
     def evaluate(
-        self, dataset: Dataset, max_items: Optional[int] = None
+        self,
+        dataset: Dataset,
+        max_items: Optional[int] = None,
+        ignore_errors: bool = False,
     ) -> EvaluationSummary:
         results = EvaluationSummary(
             evaluation_results=[],
@@ -61,12 +64,15 @@ class SequentialEvaluator(Evaluator):
                     )
                 )
             except Exception as e:
-                results.failed_evaluations.append(
-                    FailedEvaluation(
-                        datapoint=data_point,
-                        error=str(e),
+                if ignore_errors:
+                    results.failed_evaluations.append(
+                        FailedEvaluation(
+                            datapoint=data_point,
+                            error=str(e),
+                        )
                     )
-                )
+                else:
+                    raise e
 
             count += 1
 
