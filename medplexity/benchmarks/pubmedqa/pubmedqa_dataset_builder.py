@@ -33,7 +33,7 @@ class PubmedQAMetadata(BaseModel):
 
 class PubmedQADataPoint(DataPoint):
     input: PubmedQAInput
-    expected_output: Literal["(A)", "(B)", "(C)"]
+    expected_output: PubmedQADecision
     metadata: PubmedQAMetadata
 
 
@@ -56,9 +56,7 @@ class PubmedQADatasetBuilder:
                     question=question.question,
                     contexts=question.context.contexts,
                 ),
-                expected_output=PUBMEDQA_ANSWER_TO_OPTION[
-                    question.final_decision.lower().strip()
-                ],
+                expected_output=question.final_decision,
                 metadata=PubmedQAMetadata(
                     explanation=question.long_answer,
                     labels=question.context.labels,
