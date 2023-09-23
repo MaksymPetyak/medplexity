@@ -17,7 +17,6 @@ class MedMCQAQuestion(BaseModel):
     opc: str
     opd: str
     # Correct option
-    # NOTE: the answer index starts with 1, not with 0; all correct options should be in the range of [ 1, 2, 3, 4 ]
     cop: Optional[int]
     choice_type: ChoiceType
     # Explanation
