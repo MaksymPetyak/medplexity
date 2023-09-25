@@ -38,7 +38,7 @@ Some initial todos include:
 - [ ] Datasets
   - [x] Add MedMCQA dataset
   - [x] Add PubMedQA dataset
-  - [ ] Add MedQA dataset
+  - [x] Add MedQA dataset
   - [ ] Add MMLU dataset
 - [ ] LLMs
     - [x] Wrapper for OpenAI
