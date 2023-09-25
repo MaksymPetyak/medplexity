@@ -31,7 +31,8 @@ class MMLUDataPoint(DataPoint):
 
 class MMLUDatasetBuilder:
     """MMLU (Massive Multitask Language Understanding) is a massive multitask test consisting of multiple-choice questions from various domains.
-    We are interested in the tasks that could be related to medical domain, so we use the following subsets:
+
+    We are interested in the tasks that could be related to the medical domain, so use the following subsets:
     - Clinical knowledge
     - Medical genetics
     - Anatomy
@@ -40,10 +41,11 @@ class MMLUDatasetBuilder:
     - College medicine
 
     Original paper: MMLU: Massive Multitask Language Understanding
-    7 Sep 2020  ·  Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, Jacob Steinhardt
-    https://arxiv.org/abs/2009.03300
 
-    We use the version on the hugging face datasets: https://huggingface.co/datasets/lukaemon/mmlu
+    7 Sep 2020  ·  Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, Jacob Steinhardt
+    <https://arxiv.org/abs/2009.03300>
+
+    We use the version on the hugging face datasets: <https://huggingface.co/datasets/lukaemon/mmlu>
     """
 
     def build_dataset(

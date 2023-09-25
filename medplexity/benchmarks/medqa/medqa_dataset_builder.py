@@ -24,12 +24,18 @@ class MedQADataPoint(DataPoint):
 
 
 class MedQADatasetBuilder:
-    """Multiple choice question answering based on the United States Medical License Exams (USMLE).
-    Original paper: What Disease does this Patient Have? A Large-scale Open Domain Question Answering Dataset from Medical Exams
-    28 Sep 2020  ·  Di Jin, Eileen Pan, Nassim Oufattole, Wei-Hung Weng, Hanyi Fang, Peter Szolovits
-    https://arxiv.org/abs/2009.13081
+    """Multiple-choice questions based on the United States Medical License Exams (USMLE).
 
-    We use the version uploaded on HuggingFace datasets: https://huggingface.co/datasets/bigbio/med_qa
+    Original paper: What Disease does this Patient Have? A Large-scale Open Domain Question Answering Dataset from Medical Exams
+
+    28 Sep 2020 · Di Jin, Eileen Pan, Nassim Oufattole, Wei-Hung Weng, Hanyi Fang, Peter Szolovits
+    <https://arxiv.org/abs/2009.13081>
+
+    Currently, uses only med_qa_en_bigbio_qa subset of the dataset, but can be extended to other subsets.
+
+    Train/validation/test splits available.
+
+    We use the following version uploaded on HuggingFace datasets: <https://huggingface.co/datasets/bigbio/med_qa>
     """
 
     def __init__(self):

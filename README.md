@@ -1,6 +1,8 @@
 ## Medplexity 
 
+[![Documentation Status](https://readthedocs.org/projects/medplexity/badge/?version=latest)](https://medplexity.readthedocs.io/en/latest/?badge=latest)
 [![Discord](https://dcbadge.vercel.app/api/server/jUKkgqVzQ?style=flat&compact=true)](https://discord.gg/jUKkgqVzQ)
+
 
 Medplexity is a python library to help with evaluation of LLMs for medical applications.
 
@@ -19,8 +21,13 @@ The goal is to help answer questions like "How much better would GPT-4 perform g
 pip install medplexity
 ```
 
+## 📖 Documentation
+
+Documentation can be found [here](https://medplexity.readthedocs.io/en/latest/).
+
+
 ## Example
-See [MedMCQA notebook](`notebooks/MedMCQA.ipynb`) for a full example with MedMCQA dataset.
+See [MedQA notebook](`notebooks/MedQA.ipynb`) for a full example with MedQA dataset.
 
 ## Contributions
 

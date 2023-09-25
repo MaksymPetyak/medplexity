@@ -20,9 +20,9 @@ pytest-mock = "^3.10.0"
 pytest-env = "^0.8.1"
 
 [tool.poetry.group.docs.dependencies]
-mkdocs = "1.4.0"
-mkdocstrings-python = "0.7.1"
-markdown-include = "^0.6.0"
+mkdocs = "^1.5.3"
+mkdocstrings-python = "^1.7.0"
+markdown-include = "^0.8.1"
 
 [build-system]
 requires = ["poetry-core"]
