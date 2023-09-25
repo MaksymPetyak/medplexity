@@ -1,55 +1,14 @@
-from typing import List
 import os
 
-
-from pydantic import BaseModel, RootModel
-
-
-class MedQAPromptExample(BaseModel):
-    question: str
-    options: list[str]
-    explanation: str
-    answer: str
+from benchmarks.multiple_choice_utils import AnswerWithExplanation, \
+    build_example_questions
 
 
-MedQAExamplesQuestions = RootModel[List[MedQAPromptExample]]
-
-class AnswerWithExplanation(BaseModel):
-    answer: str
-    explanation: str
-
-
-INDEX_TO_OPTION = {0: "(A)", 1: "(B)", 2: "(C)", 3: "(D)", 4: "(E)"}
-
-def format_options(options: List[str]) -> str:
-
-    return " ".join(
-        [f"{INDEX_TO_OPTION[i]} {option}" for i, option in enumerate(options)]
-    )
-
-def format_medqa_answer(options: List[str], answer: str) -> str:
-    answer_idx = options.index(answer)
-
-    return INDEX_TO_OPTION[answer_idx]
-
-def build_example_question() -> List[str]:
+def load_questions_from_file() -> str:
     current_dir = os.path.dirname(os.path.abspath(__file__))
     json_path = os.path.join(current_dir, "medqa_examples.json")
 
-    with open(json_path, "r") as f:
-        examples_obj = MedQAExamplesQuestions.model_validate_json(f.read())
-
-        return [
-            "Question: {question}\n {options}\nOutput: {output}\n".format(
-                question=example.question,
-                options=format_options(example.options),
-                output=AnswerWithExplanation(
-                    answer=format_medqa_answer(example.options, example.answer),
-                    explanation=example.explanation,
-                ).model_dump_json(indent=None),
-            )
-            for example in examples_obj.root
-        ]
+    return "\n\n".join(build_example_questions(json_path))
 
 
 class MedQAPromptTemplate:
@@ -66,9 +25,7 @@ Output: """
 
     def format(self, question: str, options: list[str]):
         return self.PROMPT.format(
-            examples="\n".join(
-                build_example_question()
-            ),
+            examples=load_questions_from_file(),
             question=question,
             options=options,
         )

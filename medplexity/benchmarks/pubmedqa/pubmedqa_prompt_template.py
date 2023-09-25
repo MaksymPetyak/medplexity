@@ -4,6 +4,8 @@ import os
 
 from pydantic import BaseModel, RootModel
 
+from benchmarks.multiple_choice_utils import AnswerWithExplanation
+
 
 class PubmedQAPromptExample(BaseModel):
     question: str
@@ -13,12 +15,6 @@ class PubmedQAPromptExample(BaseModel):
 
 
 PumbedQAExamplesQuestions = RootModel[List[PubmedQAPromptExample]]
-
-
-class AnswerWithExplanation(BaseModel):
-    answer: str
-    explanation: str
-
 
 # Formulate the questions as multiple-choice still
 ANSWER_OPTIONS = "(A) Yes (B) No (C) Maybe"

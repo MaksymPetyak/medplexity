@@ -1,9 +1,9 @@
 from typing import Literal
 
-from benchmarks.medqa.medqa_prompt_template import format_medqa_answer
 from benchmarks.medqa.models import MedQAQuestion
 from pydantic import BaseModel
 
+from benchmarks.multiple_choice_utils import format_answer_to_letter
 from medplexity.datasets.dataset import DataPoint
 
 from datasets import load_dataset
@@ -52,7 +52,7 @@ class MedQADatasetBuilder:
                     options=question.choices,
                 ),
                 # always expect just one answer
-                expected_output=format_medqa_answer(question.choices, question.answer[0]) if convert_answer_to_multiple_choice else question.answer[0],
+                expected_output=format_answer_to_letter(question.choices, question.answer[0]) if convert_answer_to_multiple_choice else question.answer[0],
                 metadata=None,
             )
             for question in questions

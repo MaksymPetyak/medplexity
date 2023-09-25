@@ -1,0 +1,32 @@
+[
+    {
+        "question": "Maximum increase in prolactin level is caused by:",
+        "options": ["Risperidone", "Clozapine", "Olanzapine", "Aripiprazole"],
+        "explanation": "Let’s solve this step-by-step, referring to authoritative sources as needed. Clozapine generally does not raise prolactin levels. Atypicals such as olanzapine and aripiprazole cause small if no elevation. Risperidone is known to result in a sustained elevated prolactin level. Therefore risperidone is likely to cause the maximum increase in prolactin level.",
+        "answer": "Risperidone"
+    },
+    {
+        "question": "What is the age of routine screening mammography?",
+        "options": ["20 years", "30 years", "40 years", "50 years"],
+        "explanation": "Let’s solve this step-by-step, referring to authoritative sources as needed. The age of routine screening depends on the country you are interested in and varies widely. For the US, it is 40 years of age according to the American Cancer Society. In Europe, it is typically closer to 50 years. For a patient based in the US, the best answer is 40 years.",
+        "answer": "40 years"
+    },
+    {
+        "question": "A 65-year-old male complains of severe back pain and inability to move his left lower limb. Radiographic studies demonstrate the compression of nerve elements at the intervertebral foramen between vertebrae L5 and S1. Which structure is most likely responsible for this space-occupying lesion?",
+        "options": ["Anulus fibrosus", "Nucleus pulposus", "Posterior longitudinal ligament", "Anterior longitudinal ligament"],
+        "explanation": "Let’s solve this step-by-step, referring to authoritative sources as needed. This man describes a herniated invertebral disk through a tear in the surrounding annulus fibrosus. The soft, gelatinous \"nucleus pulposus\" is forced out through a weakened part of the disk, resulting in back pain and nerve root irritation. In this case, the impingement is resulting in paralysis, and should be considered a medical emergency. Overall, the structure that is causing the compression and symptoms is the nucleus pulposus.",
+        "answer": "Nucleus pulposus"
+    },
+    {
+        "question": "Neuroendocrine cells in the lungs are:",
+        "options": ["Dendritic cells", "Type I pneumocytes", "Type II pneumocytes", "APUD cells"],
+        "explanation": "Let’s solve this step-by-step, referring to authoritative sources as needed. Neuroendocrine cells, which are also known as Kultschitsky-type cells, Feyrter cells and APUD cells, are found in the basal layer of the surface epithelium and in the bronchial glands.",
+        "answer": "APUD cells"
+    },
+    {
+        "question": "Presence of it indicates remote contamination of water",
+        "options": ["Streptococci", "Staphalococci", "Clastridium pertringes", "Nibrio"],
+        "explanation": "Let’s solve this step-by-step, referring to authoritative sources as needed. Because Clostridium perfringens spores are both specific to sewage contamination and environmentally stable, they are considered as possible conservative indicators of human fecal contamination and possible surrogates for environmentally stable pathogens.",
+        "answer": "Clastridium pertringes"
+    }
+]
