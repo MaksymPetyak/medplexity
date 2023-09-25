@@ -35,11 +35,15 @@ Feel free to raise any questions on [Discord](https://discord.gg/jUKkgqVzQ)
 
 ## Todos
 Some initial todos include:
-- [ ] Datasets
+- [x] Multiple-Choice datasets
   - [x] Add MedMCQA dataset
   - [x] Add PubMedQA dataset
   - [x] Add MedQA dataset
-  - [ ] Add MMLU dataset
+  - [x] Add MMLU dataset
+- [ ] Long-form question answering datasets
+  - [ ] Add HealthSearchQA dataset
+  - [ ] Add MedicationQA dataset
+  - [ ] Add LiveQA dataset
 - [ ] LLMs
     - [x] Wrapper for OpenAI
     - [x] Wrapper for deepinfra
