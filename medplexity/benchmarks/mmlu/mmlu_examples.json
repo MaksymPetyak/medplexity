@@ -1,0 +1,38 @@
+[
+    {
+        "question": "The energy for all forms of muscle contraction is provided by:",
+        "options": ["ATP", "ADP", "phosphocreatine", "oxidative phosphorylation"],
+        "explanation": "The sole fuel for muscle contraction is adenosine triphosphate (ATP). During near maximal intense exercise the muscle store of ATP will be depleted in less than one second. Therefore, to maintain normal contractile function ATP must be continually resynthesized. These pathways include phosphocreatine and muscle glycogen breakdown, thus enabling substrate-level phosphorylation (‘anaerobic’) and oxidative phosphorylation by using reducing equivalents from carbohydrate and fat metabolism (‘aerobic’).",
+        "answer": "ATP"
+    },
+    {
+        "question": "Which of the following conditions does not show multifactorial inheritance?",
+        "options": ["Pyloric stenosis", "Schizophrenia", "Spina bifida (neural tube defects)", "Marfan syndrome"],
+        "explanation": "Multifactorial inheritance refers to when a condition is caused by multiple factors, which may be both genetic or environmental. Marfan is an autosomal dominant trait. It is caused by mutations in the FBN1 gene, which encodes a protein called fibrillin-1. Hence, Marfan syndrome is not an example of multifactorial inheritance.",
+        "answer": "Marfan syndrome"
+    },
+    {
+        "question": "What is the embryological origin of the hyoid bone?",
+        "options": ["The first pharyngeal arch", "The first and second pharyngeal arches", "The second pharyngeal arch", "The second and third pharyngeal arches"],
+        "explanation": "In embryology, the pharyngeal arches give rise to anatomical structure in the head and neck. The hyoid bone, a small bone in the midline of the neck anteriorly, is derived from the second and third pharyngeal arches.",
+        "answer": "The second and third pharyngeal arches"
+    },
+    {
+        "question": "In a given population, 1 out of every 400 people has a cancer caused by a completely recessive allele, b. Assuming the population is in Hardy-Weinberg equilibrium, which of the following is the expected proportion of individuals who carry the b allele but are not expected to develop the cancer?",
+        "options": ["1/400", "19/400", "20/400", "38/400"],
+        "explanation": "The expected proportion of individuals who carry the b allele but are not expected to develop the cancer equals to the frequency of heterozygous allele in the given population. According to the Hardy-Weinberg equation p∧2 + 2pq + q∧2 = 1, where p is the frequency of dominant allele frequency, q is the frequency of recessive allele frequency, p∧2 is the frequency of the homozygous dominant allele, q∧2 is the frequency of the recessive allele, and 2pq is the frequency of the heterozygous allele. Given that q∧2=1/400, hence, q=0.05 and p=1-q=0.95. The frequency of the heterozygous allele is 2pq=2*0.05*0.95=38/400.",
+        "answer": "38/400"
+    },
+    {
+        "question": "A high school science teacher fills a 1 liter bottle with pure nitrogen and seals the lid. The pressure is 1.70 atm, and the room temperature is 25◦C. Which two variables will both increase the pressure of the system, if all other variables are held constant?",
+        "options": ["Decreasing volume, decreasing temperature", "Increasing temperature, increasing volume", "Increasing temperature, increasing moles of gas", "Decreasing moles of gas, increasing volume"],
+        "explanation": "According to the ideal gas law, PV = nRT (P = pressure, V = volume, n = number of moles, R = gas constant, T = temperature). Hence, increasing both temperature (T) and moles of gas (n), while other variables stay constant, will indeed increase the pressure of the system.",
+        "answer": "Increasing temperature, increasing moles of gas"
+    },
+    {
+        "question": "A 22-year-old male marathon runner presents to the office with the complaint of right-sided rib pain when he runs long distances. Physical examination reveals normal heart and lung findings and an exhalation dysfunction at ribs 4-5 on the right. Which of the following muscles or muscle groups will be most useful in correcting this dysfunction utilizing a direct method?",
+        "options": ["anterior scalene", "latissimus dorsi", "pectoralis minor", "quadratus lumborum"],
+        "explanation": "All of the muscles have an insertion on the rib cage; however only one has an insertion at ribs 4-5 and could be responsible for right-sided rib pain: pectoralis minor. Pectoralis minor inserts to the costal cartilage of the anterior third to fifth ribs.",
+        "answer": "pectoralis minor"
+    }
+]
