@@ -1,14 +1,14 @@
 import os
 
 from benchmarks.multiple_choice_utils import AnswerWithExplanation, \
-    build_example_questions
+    build_example_questions, format_options
 
 
 def load_questions_from_file() -> str:
     current_dir = os.path.dirname(os.path.abspath(__file__))
     json_path = os.path.join(current_dir, "medqa_examples.json")
 
-    return "\n\n".join(build_example_questions(json_path))
+    return "\n".join(build_example_questions(json_path))
 
 
 class MedQAPromptTemplate:
@@ -27,5 +27,5 @@ Output: """
         return self.PROMPT.format(
             examples=load_questions_from_file(),
             question=question,
-            options=options,
+            options=format_options(options),
         )
