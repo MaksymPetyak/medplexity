@@ -48,7 +48,7 @@ Some initial todos include:
   - [x] Add MedQA dataset
   - [x] Add MMLU dataset
 - [ ] Long-form question answering datasets
-  - [ ] Add HealthSearchQA dataset
+  - [x] Add HealthSearchQA dataset
   - [ ] Add MedicationQA dataset
   - [ ] Add LiveQA dataset
 - [ ] LLMs
