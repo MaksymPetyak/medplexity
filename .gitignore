@@ -1,3 +1,5 @@
+notebooks/Playground.ipynb
+
 # .env
 .env
 
@@ -14,14 +16,14 @@ __pycache__
 # build
 build
 dist
-pandasai.egg-info
+medplexity.egg-info
 
 #venv
 /venv
 .venv
 
 # command line
-/pandasai_cli.egg-info
+/medplexity.egg-info
 
 # pycharm
 .idea/
