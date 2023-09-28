@@ -49,7 +49,7 @@ Some initial todos include:
   - [x] Add MMLU dataset
 - [ ] Long-form question answering datasets
   - [x] Add HealthSearchQA dataset
-  - [ ] Add MedicationQA dataset
+  - [x] Add MedicationQA dataset
   - [ ] Add LiveQA dataset
 - [ ] LLMs
     - [x] Wrapper for OpenAI

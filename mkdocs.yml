@@ -17,6 +17,7 @@ nav:
       - benchmarks/mmlu.md
       - benchmarks/pubmedqa.md
       - benchmarks/healthsearchqa.md
+      - benchmarks/medicationqa.md
   - About:
 #- Release Notes: release-notes.md
 #- Contributing: CONTRIBUTING.md
