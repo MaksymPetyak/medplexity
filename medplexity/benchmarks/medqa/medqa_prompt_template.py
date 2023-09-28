@@ -1,7 +1,10 @@
 import os
 
-from benchmarks.multiple_choice_utils import AnswerWithExplanation, \
-    build_example_questions, format_options
+from benchmarks.multiple_choice_utils import (
+    AnswerWithExplanation,
+    build_example_questions,
+    format_options,
+)
 
 
 def load_questions_from_file() -> str:

@@ -36,6 +36,7 @@ class MedMCQADatasetBuilder:
 
     Dataset version used: <https://huggingface.co/datasets/medmcqa>
     """
+
     def __init__(self, loader: MedMCQALoader | None = None):
         self.loader = loader or MedMCQALoader()
 

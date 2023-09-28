@@ -10,19 +10,21 @@ from datasets import load_dataset
 
 
 class MMLUSubsetConfig(str, Enum):
-    clinical_knowledge = 'clinical_knowledge'
-    medical_genetics = 'medical_genetics'
-    anatomy = 'anatomy'
-    professional_medicine = 'professional_medicine'
-    college_biology = 'college_biology'
-    college_medicine = 'college_medicine'
+    clinical_knowledge = "clinical_knowledge"
+    medical_genetics = "medical_genetics"
+    anatomy = "anatomy"
+    professional_medicine = "professional_medicine"
+    college_biology = "college_biology"
+    college_medicine = "college_medicine"
 
 
-MMLUQADatasetSplitType = Literal["train", 'validation', 'test']
+MMLUQADatasetSplitType = Literal["train", "validation", "test"]
+
 
 class MMLUInput(BaseModel):
     question: str
     options: list[str]
+
 
 class MMLUDataPoint(DataPoint):
     input: MMLUInput
@@ -63,7 +65,7 @@ class MMLUDatasetBuilder:
                     question=question.input,
                     options=[question.A, question.B, question.C, question.D],
                 ),
-                expected_output=f'({question.target})',
+                expected_output=f"({question.target})",
                 metadata=None,
             )
             for question in questions

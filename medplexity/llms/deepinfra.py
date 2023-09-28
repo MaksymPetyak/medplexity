@@ -22,7 +22,9 @@ class Deepinfra(LLM):
     repetition_penalty: float = 1.0
     stream: bool = False
 
-    def __init__(self, api_token: Optional[str] = None, model: str = "llama-2-70b-chat-hf"):
+    def __init__(
+        self, api_token: Optional[str] = None, model: str = "llama-2-70b-chat-hf"
+    ):
         self.api_token = api_token or os.getenv("DEEPINFRA_API_KEY")
         if not self.api_token:
             raise ValueError("Deepinfra API key is required")
@@ -38,20 +40,22 @@ class Deepinfra(LLM):
             "temperature": self.temperature,
             "top_p": self.top_p,
             "repetition_penalty": self.repetition_penalty,
-            "stream": self.stream
+            "stream": self.stream,
         }
 
     def completion(self, prompt: str) -> str:
         payload = self._prepare_payload(prompt)
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_token}"
+            "Authorization": f"Bearer {self.api_token}",
         }
         endpoint = self.endpoint_base + self.MODELS_AND_ENDPOINTS[self.model]
         response = requests.post(endpoint, json=payload, headers=headers)
 
         if response.status_code != 200:
-            raise ValueError(f"API call failed with status {response.status_code}: {response.text}")
+            raise ValueError(
+                f"API call failed with status {response.status_code}: {response.text}"
+            )
 
         return response.json()["results"][0]["generated_text"]
 

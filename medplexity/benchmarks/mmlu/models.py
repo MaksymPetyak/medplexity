@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class MMLUQuestion(BaseModel):
     input: str
     A: str

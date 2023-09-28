@@ -10,13 +10,15 @@ from datasets import load_dataset
 
 
 # TODO: extend and experiment with more types
-MedQASubsetConfig = Literal['med_qa_en_bigbio_qa']
+MedQASubsetConfig = Literal["med_qa_en_bigbio_qa"]
 
-MedQADatasetSplitType = Literal["train", 'validation', 'test']
+MedQADatasetSplitType = Literal["train", "validation", "test"]
+
 
 class MedQAInput(BaseModel):
     question: str
     options: list[str]
+
 
 class MedQADataPoint(DataPoint):
     input: MedQAInput
@@ -43,7 +45,7 @@ class MedQADatasetBuilder:
 
     def build_dataset(
         self,
-        config_type: MedQASubsetConfig = 'med_qa_en_bigbio_qa',
+        config_type: MedQASubsetConfig = "med_qa_en_bigbio_qa",
         split_type: MedQADatasetSplitType = "train",
         convert_answer_to_multiple_choice: bool = True,
     ) -> list[MedQADataPoint]:
@@ -58,7 +60,11 @@ class MedQADatasetBuilder:
                     options=question.choices,
                 ),
                 # always expect just one answer
-                expected_output=format_answer_to_letter(question.choices, question.answer[0]) if convert_answer_to_multiple_choice else question.answer[0],
+                expected_output=format_answer_to_letter(
+                    question.choices, question.answer[0]
+                )
+                if convert_answer_to_multiple_choice
+                else question.answer[0],
                 metadata=None,
             )
             for question in questions

@@ -12,10 +12,12 @@ from benchmarks.medqa.models import MedQAQuestion
 class HealthSearchQAInput(BaseModel):
     question: str
 
+
 class HealthSearchQADataPoint(DataPoint):
     input: HealthSearchQAInput
     expected_output: None
     metadata: None
+
 
 class HealthSearchQASubsetConfig(str, Enum):
     all_data = "all_data"
@@ -41,7 +43,7 @@ class HealthSearchQADatasetBuilder:
         subset: HealthSearchQASubsetConfig = HealthSearchQASubsetConfig.all_data,
     ) -> Dataset:
         # No splitting, so just set split='train'
-        dataset = load_dataset("katielink/healthsearchqa", subset, split='train')
+        dataset = load_dataset("katielink/healthsearchqa", subset, split="train")
 
         questions = [HealthSearchQAQuestion(**row) for row in dataset]
 
@@ -57,7 +59,4 @@ class HealthSearchQADatasetBuilder:
             if question.id is not None and question.question is not None
         ]
 
-        return Dataset(
-            data_points=data_points,
-            description=self.__doc__
-        )
+        return Dataset(data_points=data_points, description=self.__doc__)

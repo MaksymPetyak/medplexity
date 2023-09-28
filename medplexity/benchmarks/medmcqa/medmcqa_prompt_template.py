@@ -1,7 +1,10 @@
 import os
 
-from benchmarks.multiple_choice_utils import AnswerWithExplanation, \
-    build_example_questions, format_options
+from benchmarks.multiple_choice_utils import (
+    AnswerWithExplanation,
+    build_example_questions,
+    format_options,
+)
 
 
 def load_questions_from_file() -> str:
@@ -9,6 +12,7 @@ def load_questions_from_file() -> str:
     json_path = os.path.join(current_dir, "medmcqa_examples.json")
 
     return "\n".join(build_example_questions(json_path))
+
 
 class MedMCQAPromptTemplate:
     """Chain-of-thought prompt for MedMCQA. Returns a JSON with answer and an explanation for it. Adapted from https://arxiv.org/abs/2305.09617"""

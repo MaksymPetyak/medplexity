@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List
 
+
 class MedQAQuestion(BaseModel):
     id: str
     question_id: str
