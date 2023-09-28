@@ -3,6 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel
 
+from benchmarks.dataset_builder import DatasetBuilder
 from benchmarks.mmlu.models import MMLUQuestion
 from medplexity.datasets.dataset import DataPoint, Dataset
 
@@ -31,7 +32,7 @@ class MMLUDataPoint(DataPoint):
     expected_output: str
 
 
-class MMLUDatasetBuilder:
+class MMLUDatasetBuilder(DatasetBuilder):
     """MMLU (Massive Multitask Language Understanding) is a massive multitask test consisting of multiple-choice questions from various domains.
 
     We are interested in the tasks that could be related to the medical domain, so use the following subsets:

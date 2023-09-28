@@ -1,5 +1,6 @@
 from typing import Literal
 
+from benchmarks.dataset_builder import DatasetBuilder
 from benchmarks.medqa.models import MedQAQuestion
 from pydantic import BaseModel
 
@@ -25,7 +26,7 @@ class MedQADataPoint(DataPoint):
     expected_output: str
 
 
-class MedQADatasetBuilder:
+class MedQADatasetBuilder(DatasetBuilder):
     """Multiple-choice questions based on the United States Medical License Exams (USMLE).
 
     Original paper: What Disease does this Patient Have? A Large-scale Open Domain Question Answering Dataset from Medical Exams
@@ -39,9 +40,6 @@ class MedQADatasetBuilder:
 
     We use the following version uploaded on HuggingFace datasets: <https://huggingface.co/datasets/bigbio/med_qa>
     """
-
-    def __init__(self):
-        pass
 
     def build_dataset(
         self,

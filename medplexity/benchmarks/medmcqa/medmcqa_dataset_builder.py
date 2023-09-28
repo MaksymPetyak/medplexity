@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+from benchmarks.dataset_builder import DatasetBuilder
 from medplexity.benchmarks.medmcqa.medmcqa_loader import (
     MedMCQALoader,
     MedMCQADatasetTypes,
@@ -23,7 +24,7 @@ class MedMCQADataPoint(DataPoint):
     metadata: MedMCQAOutputMetadata
 
 
-class MedMCQADatasetBuilder:
+class MedMCQADatasetBuilder(DatasetBuilder):
     """Multiple-choice questions designed to address real-world medical entrance exam questions like AIIMS & NEET PG.
     This dataset encompasses over 194k high-quality MCQs spanning 2.4k healthcare topics and 21 medical subjects. Questions are accompanied by an explanation of the correct answer.
 
