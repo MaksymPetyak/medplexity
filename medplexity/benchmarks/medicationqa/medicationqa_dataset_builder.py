@@ -38,7 +38,7 @@ class MedicationQADatasetBuilder:
 
     def build_dataset(
         self,
-    ) -> Dataset:
+    ) -> Dataset[MedicationQADataPoint]:
         # No splitting, so just set split='train'
         dataset = load_dataset("truehealth/medicationqa", split="train")
 
@@ -62,4 +62,6 @@ class MedicationQADatasetBuilder:
             for question in questions
         ]
 
-        return Dataset(data_points=data_points, description=self.__doc__)
+        return Dataset[MedicationQADataPoint](
+            data_points=data_points, description=self.__doc__
+        )

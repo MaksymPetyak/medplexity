@@ -4,7 +4,7 @@ from medplexity.benchmarks.medmcqa.medmcqa_loader import (
     MedMCQALoader,
     MedMCQADatasetTypes,
 )
-from medplexity.datasets.dataset import DataPoint
+from medplexity.datasets.dataset import DataPoint, Dataset
 
 
 class MedMCQAInput(BaseModel):
@@ -42,7 +42,7 @@ class MedMCQADatasetBuilder:
 
     def build_dataset(
         self, dataset_type: MedMCQADatasetTypes
-    ) -> list[MedMCQADataPoint]:
+    ) -> Dataset[MedMCQADataPoint]:
         questions = self.loader.load_questions(dataset_type)
 
         data_points = [
@@ -61,4 +61,6 @@ class MedMCQADatasetBuilder:
             if question.cop is not None
         ]
 
-        return data_points
+        return Dataset[MedMCQADataPoint](
+            data_points=data_points, description=self.__doc__
+        )

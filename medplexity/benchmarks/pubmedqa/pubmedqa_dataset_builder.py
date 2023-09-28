@@ -3,10 +3,7 @@ from typing import Literal, List
 from pydantic import BaseModel
 
 from medplexity.benchmarks.pubmedqa.models import PubmedQADecision, PubMedQAQuestion
-from medplexity.benchmarks.pubmedqa.pubmedqa_prompt_template import (
-    PUBMEDQA_ANSWER_TO_OPTION,
-)
-from medplexity.datasets.dataset import DataPoint
+from medplexity.datasets.dataset import DataPoint, Dataset
 
 from datasets import load_dataset
 
@@ -62,7 +59,7 @@ class PubmedQADatasetBuilder:
         self,
         config_type: PubMedQADatasetConfigType = "pqa_labeled",
         split_type: PubMedQADatasetSplitType = "train",
-    ) -> list[PubmedQADataPoint]:
+    ) -> Dataset[PubmedQADataPoint]:
         dataset = load_dataset("pubmed_qa", config_type, split=split_type)
 
         questions = [PubMedQAQuestion(**row) for row in dataset]
@@ -83,4 +80,6 @@ class PubmedQADatasetBuilder:
             for question in questions
         ]
 
-        return data_points
+        return Dataset[PubmedQADataPoint](
+            data_points=data_points, description=self.__doc__
+        )

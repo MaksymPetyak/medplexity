@@ -6,8 +6,6 @@ from pydantic import BaseModel
 from benchmarks.healthsearchqa.models import HealthSearchQAQuestion
 from medplexity.datasets.dataset import Dataset, DataPoint
 
-from benchmarks.medqa.models import MedQAQuestion
-
 
 class HealthSearchQAInput(BaseModel):
     question: str
@@ -41,7 +39,7 @@ class HealthSearchQADatasetBuilder:
     def build_dataset(
         self,
         subset: HealthSearchQASubsetConfig = HealthSearchQASubsetConfig.all_data,
-    ) -> Dataset:
+    ) -> Dataset[HealthSearchQADataPoint]:
         # No splitting, so just set split='train'
         dataset = load_dataset("katielink/healthsearchqa", subset, split="train")
 
@@ -59,4 +57,6 @@ class HealthSearchQADatasetBuilder:
             if question.id is not None and question.question is not None
         ]
 
-        return Dataset(data_points=data_points, description=self.__doc__)
+        return Dataset[HealthSearchQADataPoint](
+            data_points=data_points, description=self.__doc__
+        )

@@ -1,18 +1,24 @@
-from typing import Any, List
+from typing import Any, List, Generic, TypeVar
 
 from pydantic import BaseModel
 
 
-class DataPoint(BaseModel):
-    input: Any
+DataT = TypeVar("DataT")
+
+
+class DataPoint(BaseModel, Generic[DataT]):
+    input: DataT
     expected_output: Any
     metadata: Any
 
 
-class Dataset:
+DataPointT = TypeVar("DataPointT")
+
+
+class Dataset(Generic[DataPointT]):
     """Dataset objects can be iterated through and evaluated against"""
 
-    def __init__(self, data_points: List[DataPoint], description: str = ""):
+    def __init__(self, data_points: List[DataPointT], description: str = ""):
         """
         Initialize the dataset with data points.
 
@@ -36,5 +42,5 @@ class Dataset:
     def description(self):
         return self._description
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx) -> DataPointT:
         return self.data_points[idx]

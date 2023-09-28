@@ -4,7 +4,7 @@ from typing import Literal
 from pydantic import BaseModel
 
 from benchmarks.mmlu.models import MMLUQuestion
-from medplexity.datasets.dataset import DataPoint
+from medplexity.datasets.dataset import DataPoint, Dataset
 
 from datasets import load_dataset
 
@@ -54,7 +54,7 @@ class MMLUDatasetBuilder:
         self,
         config_type: MMLUSubsetConfig = MMLUSubsetConfig.clinical_knowledge,
         split_type: MMLUQADatasetSplitType = "train",
-    ) -> list[MMLUDataPoint]:
+    ) -> Dataset[MMLUDataPoint]:
         dataset = load_dataset("lukaemon/mmlu", config_type, split=split_type)
 
         questions = [MMLUQuestion(**row) for row in dataset]
@@ -71,4 +71,4 @@ class MMLUDatasetBuilder:
             for question in questions
         ]
 
-        return data_points
+        return Dataset[MMLUDataPoint](data_points=data_points, description=self.__doc__)

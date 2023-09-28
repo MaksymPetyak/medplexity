@@ -4,7 +4,7 @@ from benchmarks.medqa.models import MedQAQuestion
 from pydantic import BaseModel
 
 from benchmarks.multiple_choice_utils import format_answer_to_letter
-from medplexity.datasets.dataset import DataPoint
+from medplexity.datasets.dataset import DataPoint, Dataset
 
 from datasets import load_dataset
 
@@ -48,7 +48,7 @@ class MedQADatasetBuilder:
         config_type: MedQASubsetConfig = "med_qa_en_bigbio_qa",
         split_type: MedQADatasetSplitType = "train",
         convert_answer_to_multiple_choice: bool = True,
-    ) -> list[MedQADataPoint]:
+    ) -> Dataset[MedQADataPoint]:
         dataset = load_dataset("bigbio/med_qa", config_type, split=split_type)
 
         questions = [MedQAQuestion(**row) for row in dataset]
@@ -70,4 +70,6 @@ class MedQADatasetBuilder:
             for question in questions
         ]
 
-        return data_points
+        return Dataset[MedQADataPoint](
+            data_points=data_points, description=self.__doc__
+        )
