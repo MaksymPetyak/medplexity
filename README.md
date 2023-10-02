@@ -51,6 +51,7 @@ Some initial todos include:
   - [x] Add HealthSearchQA dataset
   - [x] Add MedicationQA dataset
   - [ ] Add LiveQA dataset
+- [ ] Explore datasets for multi-modality, specifically vision tasks for GPT-4V.
 - [ ] LLMs
     - [x] Wrapper for OpenAI
     - [x] Wrapper for deepinfra
