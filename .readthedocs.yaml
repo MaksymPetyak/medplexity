@@ -8,6 +8,9 @@ version: 2
 mkdocs:
   configuration: mkdocs.yml
 
+build:
+  os: ubuntu-22.04
+
 python:
   install:
     - requirements: docs/requirements.txt
