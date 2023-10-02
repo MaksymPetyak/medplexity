@@ -23,6 +23,7 @@ pytest-env = "^0.8.1"
 mkdocs = "^1.5.3"
 mkdocstrings-python = "^1.7.0"
 markdown-include = "^0.8.1"
+mkdocs-material = "^9.4.3"
 
 [build-system]
 requires = ["poetry-core"]

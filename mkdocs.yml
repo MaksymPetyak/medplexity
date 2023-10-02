@@ -5,7 +5,7 @@ site_description: Medplexity is a python library to help with evaluation of LLMs
 site_author: Maksym Petyak
 
 theme:
-  name: readthedocs
+  name: material
   highlightjs: true
 
 nav:
