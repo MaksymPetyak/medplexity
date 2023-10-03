@@ -9,7 +9,7 @@ from medplexity.evaluators.evaluator import Evaluator, EvaluationResult
 
 
 class SequentialEvaluator(Evaluator):
-    """Simply goes over the dataset one item and a time and calls the LLM on the input."""
+    """Simply goes over the dataset one item at a time and calls the LLM on the input."""
 
     def __init__(
         self,
