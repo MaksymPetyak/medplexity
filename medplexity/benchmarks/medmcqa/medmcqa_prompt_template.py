@@ -21,7 +21,7 @@ class MedMCQAPromptTemplate:
 
     PROMPT = """The following are multiple choice questions about medical knowledge. Solve them in a step-by-step fashion, starting by summarizing the available information. Output a JSON with the answer (give back only the letter) and an explanation for it.
 {examples}
-    
+
 Question: {question}
 {options}
 Output: """
