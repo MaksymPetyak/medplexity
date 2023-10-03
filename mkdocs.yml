@@ -10,6 +10,7 @@ theme:
 
 nav:
   - Introduction: index.md
+  - Key concepts: key-concepts.md
 #  - Getting Started: getting-started.md
   - Benchmarks:
       - benchmarks/medqa.md
