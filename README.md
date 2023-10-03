@@ -58,7 +58,7 @@ Some initial todos include:
     - [ ] Wrapper for Google PALM
     - [ ] Wrapper for HuggingFace text-gen
 - [ ] Jupyter notebook quickstart
-- [ ] Example with langchain integration
+- [x] Example with langchain integration
 - [ ] Visualisation of results
   - [ ] Add export of evaluations
   - [ ] Frontend for exploring exported results

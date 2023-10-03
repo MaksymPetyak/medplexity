@@ -9,6 +9,7 @@ class EvaluationResult(BaseModel):
     expected_output: Any
 
     output: Any
+    output_metadata: Any
 
     correct: bool
 
