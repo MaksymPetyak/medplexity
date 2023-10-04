@@ -1,5 +1,6 @@
 ## Medplexity 
 
+![Release](https://img.shields.io/pypi/v/medplexity?label=Release&style=flat-square)
 [![Documentation Status](https://readthedocs.org/projects/medplexity/badge/?version=latest)](https://medplexity.readthedocs.io/en/latest/?badge=latest)
 [![Discord](https://dcbadge.vercel.app/api/server/jUKkgqVzQ?style=flat&compact=true)](https://discord.gg/jUKkgqVzQ)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
