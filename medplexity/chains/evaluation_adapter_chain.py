@@ -1,7 +1,6 @@
 from typing import Optional, Callable, Any
 
 from chains.chain import Chain
-from medplexity.datasets.dataset import DataPoint
 from medplexity.llms.llm import LLM
 
 
@@ -12,7 +11,7 @@ class EvaluationAdapterChain(Chain):
         self,
         llm: LLM = None,
         chain: Chain = None,
-        input_adapter: Optional[Callable[[DataPoint], str]] = None,
+        input_adapter: Optional[Callable[[Any], str]] = None,
         output_adapter: Optional[Callable[[str], Any]] = None,
     ):
         self.input_adapter = input_adapter
