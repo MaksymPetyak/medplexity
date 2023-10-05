@@ -40,15 +40,10 @@ class SequentialEvaluator(Evaluator):
             try:
                 chain_output = self.chain(data_point.input)
                 output_metadata = None
-                print("chain_output:", chain_output)
-                print("type of chain_output:", type(chain_output))
 
                 if isinstance(chain_output, ChainOutput):
-                    print("updating output_metadata")
                     output_metadata = chain_output.output_metadata
                     chain_output = chain_output.output
-
-                print("chain_output after update", chain_output)
 
                 if self.format_checker:
                     is_format_correct = self.format_checker(chain_output)
