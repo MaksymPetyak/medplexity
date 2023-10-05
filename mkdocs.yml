@@ -19,10 +19,9 @@ nav:
       - benchmarks/pubmedqa.md
       - benchmarks/healthsearchqa.md
       - benchmarks/medicationqa.md
-  - About:
+  - License: license.md
 #- Release Notes: release-notes.md
 #- Contributing: CONTRIBUTING.md
-      - License: license.md
 extra:
   version: "0.1.0"
 plugins:
