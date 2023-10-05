@@ -1,8 +1,8 @@
 from datasets import load_dataset
 from pydantic import BaseModel
 
-from benchmarks.dataset_builder import DatasetBuilder
-from benchmarks.medicationqa.models import MedicationQAEntry
+from medplexity.benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.medicationqa.models import MedicationQAEntry
 from medplexity.datasets.dataset import Dataset, DataPoint
 
 

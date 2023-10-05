@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.dataset_builder import DatasetBuilder
 from medplexity.benchmarks.medmcqa.medmcqa_loader import (
     MedMCQALoader,
     MedMCQADatasetSplitType,

@@ -3,8 +3,8 @@ from typing import Literal
 
 from pydantic import BaseModel
 
-from benchmarks.dataset_builder import DatasetBuilder
-from benchmarks.mmlu.models import MMLUQuestion
+from medplexity.benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.mmlu.models import MMLUQuestion
 from medplexity.datasets.dataset import DataPoint, Dataset
 
 from datasets import load_dataset

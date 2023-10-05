@@ -3,8 +3,8 @@ from enum import Enum
 from datasets import load_dataset
 from pydantic import BaseModel
 
-from benchmarks.dataset_builder import DatasetBuilder
-from benchmarks.healthsearchqa.models import HealthSearchQAQuestion
+from medplexity.benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.healthsearchqa.models import HealthSearchQAQuestion
 from medplexity.datasets.dataset import Dataset, DataPoint
 
 

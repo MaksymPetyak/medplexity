@@ -1,6 +1,6 @@
 from typing import Optional, Callable, Any
 
-from chains.chain import Chain
+from medplexity.chains.chain import Chain
 from medplexity.llms.llm import LLM
 
 

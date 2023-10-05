@@ -1,10 +1,10 @@
 from typing import Literal
 
-from benchmarks.dataset_builder import DatasetBuilder
-from benchmarks.medqa.models import MedQAQuestion
+from medplexity.benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.medqa.models import MedQAQuestion
 from pydantic import BaseModel
 
-from benchmarks.multiple_choice_utils import format_answer_to_letter
+from medplexity.benchmarks.multiple_choice_utils import format_answer_to_letter
 from medplexity.datasets.dataset import DataPoint, Dataset
 
 from datasets import load_dataset

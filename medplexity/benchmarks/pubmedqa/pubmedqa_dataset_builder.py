@@ -2,7 +2,7 @@ from typing import Literal, List
 
 from pydantic import BaseModel
 
-from benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.dataset_builder import DatasetBuilder
 from medplexity.benchmarks.pubmedqa.models import PubmedQADecision, PubMedQAQuestion
 from medplexity.datasets.dataset import DataPoint, Dataset
 

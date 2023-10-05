@@ -1,6 +1,6 @@
 import os
 
-from benchmarks.multiple_choice_utils import (
+from medplexity.benchmarks.multiple_choice_utils import (
     AnswerWithExplanation,
     build_example_questions,
     format_options,

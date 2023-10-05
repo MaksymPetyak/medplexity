@@ -4,7 +4,7 @@ import os
 
 from pydantic import BaseModel, RootModel
 
-from benchmarks.multiple_choice_utils import AnswerWithExplanation
+from medplexity.benchmarks.multiple_choice_utils import AnswerWithExplanation
 
 
 class PubmedQAPromptExample(BaseModel):

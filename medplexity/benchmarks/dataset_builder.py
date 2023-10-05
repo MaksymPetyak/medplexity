@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from datasets import Dataset
+from medplexity.datasets.dataset import Dataset
 
 
 class DatasetBuilder(ABC):
