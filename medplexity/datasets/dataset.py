@@ -11,6 +11,9 @@ class DataPoint(BaseModel, Generic[DataT]):
     expected_output: Any
     metadata: Any
 
+    def __repr__(self) -> str:
+        return self.model_dump_json(indent=4)
+
 
 DataPointT = TypeVar("DataPointT")
 
