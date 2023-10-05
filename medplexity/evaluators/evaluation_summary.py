@@ -1,3 +1,4 @@
+import json
 from typing import Any
 
 from pydantic import BaseModel
@@ -37,3 +38,16 @@ class EvaluationSummary(BaseModel):
                 incorrect.append(result)
 
         return correct, incorrect
+
+    def save(self, filename: str):
+        with open(filename, "w") as file:
+            file.write(self.model_dump_json())
+
+    @classmethod
+    def load_from_file(cls, filename: str):
+        with open(filename, "r") as file:
+            data = json.load(file)
+            return cls(**data)
+
+    def __repr__(self):
+        return self.model_dump_json(indent=4)
