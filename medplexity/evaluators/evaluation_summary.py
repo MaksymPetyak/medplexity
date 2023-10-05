@@ -14,6 +14,9 @@ class EvaluationResult(BaseModel):
 
     correct: bool
 
+    def __repr__(self):
+        return self.model_dump_json(indent=4)
+
 
 class FailedEvaluation(BaseModel):
     datapoint: Any
@@ -48,6 +51,3 @@ class EvaluationSummary(BaseModel):
         with open(filename, "r") as file:
             data = json.load(file)
             return cls(**data)
-
-    def __repr__(self):
-        return self.model_dump_json(indent=4)
