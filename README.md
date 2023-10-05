@@ -4,6 +4,7 @@
 [![Documentation Status](https://readthedocs.org/projects/medplexity/badge/?version=latest)](https://medplexity.readthedocs.io/en/latest/?badge=latest)
 [![Discord](https://dcbadge.vercel.app/api/server/jUKkgqVzQ?style=flat&compact=true)](https://discord.gg/jUKkgqVzQ)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![Open in Colab](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/github/MaksymPetyak/medplexity/blob/main/notebooks/Getting%20started.ipynb)
 
 
 Medplexity is a python library to help with evaluation of LLMs for medical applications.
@@ -29,7 +30,7 @@ Documentation can be found [here](https://medplexity.readthedocs.io/en/latest/).
 
 
 ## Example
-See [MedQA notebook](`notebooks/MedQA.ipynb`) for a full example with MedQA dataset.
+See our ["Getting Started" notebook](`https://colab.research.google.com/github/MaksymPetyak/medplexity/blob/main/notebooks/Getting%20started.ipynb`) for a full example with MedMCQA dataset.
 
 ## Contributions
 
@@ -59,7 +60,7 @@ Some initial todos include:
     - [x] Wrapper for deepinfra
     - [ ] Wrapper for Google PALM
     - [ ] Wrapper for HuggingFace text-gen
-- [ ] Jupyter notebook quickstart
+- [x] Jupyter notebook quickstart
 - [x] Example with langchain integration
 - [ ] Visualisation of results
   - [ ] Add export of evaluations
