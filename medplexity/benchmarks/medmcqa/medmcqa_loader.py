@@ -7,7 +7,7 @@ from datasets import load_dataset
 from medplexity.benchmarks.medmcqa.models import MedMCQAQuestion
 
 
-MedMCQADatasetTypes = Literal["train", "test", "validation"]
+MedMCQADatasetSplitType = Literal["train", "test", "validation"]
 
 
 class MedMCQALoader:
@@ -24,24 +24,24 @@ class MedMCQALoader:
         self.dataset_directory: Path = dataset_directory
 
     def load_questions(
-        self, dataset_type: MedMCQADatasetTypes
+        self, split_type: MedMCQADatasetSplitType
     ) -> List[MedMCQAQuestion]:
         if self.dataset_directory is None:
-            return self.download_dataset_and_load_questions(dataset_type)
+            return self.download_dataset_and_load_questions(split_type)
         else:
-            return self.load_questions_from_file(dataset_type)
+            return self.load_questions_from_file(split_type)
 
-    def download_dataset_and_load_questions(self, dataset_type: MedMCQADatasetTypes):
-        medmcqa_dataset = load_dataset("medmcqa", split=dataset_type)
+    def download_dataset_and_load_questions(self, split_type: MedMCQADatasetSplitType):
+        medmcqa_dataset = load_dataset("medmcqa", split=split_type)
 
         questions = [MedMCQAQuestion(**row) for row in medmcqa_dataset]
 
         return questions
 
     def load_questions_from_file(
-        self, dataset_type: MedMCQADatasetTypes
+        self, split_type: MedMCQADatasetSplitType
     ) -> List[MedMCQAQuestion]:
-        file_path = self.dataset_directory / Path(f"{dataset_type}.json")
+        file_path = self.dataset_directory / Path(f"{split_type}.json")
         if not file_path.exists():
             raise ValueError(f"Path to file {str(file_path)} doesn't exist")
 
