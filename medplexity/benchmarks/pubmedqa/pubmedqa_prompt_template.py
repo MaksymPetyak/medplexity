@@ -5,6 +5,7 @@ import os
 from pydantic import BaseModel, RootModel
 
 from medplexity.benchmarks.multiple_choice_utils import AnswerWithExplanation
+from medplexity.prompts.prompt import Prompt
 
 
 class PubmedQAPromptExample(BaseModel):
@@ -54,7 +55,7 @@ def build_example_question() -> List[str]:
         ]
 
 
-class PubmedQAPromptTemplate:
+class PubmedQAPromptTemplate(Prompt):
     """Chain-of-thought prompt for PubmedQA. Returns a JSON with answer and an explanation for it. Adapted from https://arxiv.org/abs/2305.09617"""
 
     parser = AnswerWithExplanation

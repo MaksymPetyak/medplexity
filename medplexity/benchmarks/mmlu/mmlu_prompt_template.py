@@ -5,6 +5,7 @@ from medplexity.benchmarks.multiple_choice_utils import (
     AnswerWithExplanation,
     format_options,
 )
+from medplexity.prompts.prompt import Prompt
 
 
 def load_questions_from_file() -> str:
@@ -14,7 +15,7 @@ def load_questions_from_file() -> str:
     return "\n".join(build_example_questions(json_path))
 
 
-class MMLUPromptTemplate:
+class MMLUPromptTemplate(Prompt):
     """Chain-of-thought prompt for MMLU. Returns a JSON with answer and an explanation for it. Adapted from https://arxiv.org/abs/2305.09617"""
 
     parser = AnswerWithExplanation
