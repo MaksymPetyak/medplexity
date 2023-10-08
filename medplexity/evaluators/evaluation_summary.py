@@ -42,9 +42,14 @@ class EvaluationSummary(BaseModel):
 
         return correct, incorrect
 
-    def save(self, filename: str):
+    def save(self, filename: str, additional_data: dict = None):
         with open(filename, "w") as file:
-            file.write(self.model_dump_json())
+            json_obj = json.loads(self.model_dump_json())
+
+            if additional_data is not None:
+                json_obj.update(additional_data)
+
+            file.write(json.dumps(json_obj))
 
     @classmethod
     def load_from_file(cls, filename: str):
