@@ -1,7 +1,7 @@
 from datasets import load_dataset
 from pydantic import BaseModel
 
-from medplexity.benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.dataset_factory import DatasetFactory
 from medplexity.benchmarks.medicationqa.models import MedicationQAEntry
 from medplexity.datasets.dataset import Dataset, DataPoint
 
@@ -25,7 +25,7 @@ class MedicationQADataPoint(DataPoint):
     metadata: MedicationQAMetaData
 
 
-class MedicationQADatasetBuilder(DatasetBuilder):
+class MedicationQADatasetFactory(DatasetFactory):
     """Medication Question Answering created using real consumer questions.
 
     Paper: Bridging the Gap between Consumers’ Medication Questions and Trusted Answers.

@@ -1,6 +1,6 @@
 from typing import Literal
 
-from medplexity.benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.dataset_factory import DatasetFactory
 from medplexity.benchmarks.medqa.models import MedQAQuestion
 from pydantic import BaseModel
 
@@ -26,7 +26,7 @@ class MedQADataPoint(DataPoint):
     expected_output: str
 
 
-class MedQADatasetBuilder(DatasetBuilder):
+class MedQADatasetFactory(DatasetFactory):
     """Multiple-choice questions based on the United States Medical License Exams (USMLE).
 
     Original paper: What Disease does this Patient Have? A Large-scale Open Domain Question Answering Dataset from Medical Exams

@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 from medplexity.datasets.dataset import Dataset
 
 
-class DatasetBuilder(ABC):
-    """Abstract class for dataset builders."""
+class DatasetFactory(ABC):
+    """Abstract class for creating datasets."""
 
     @abstractmethod
     def build_dataset(self, *args, **kwargs) -> Dataset:

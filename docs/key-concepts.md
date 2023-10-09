@@ -35,13 +35,13 @@ chain = EvaluationAdapterChain(
 This is one of the main features of medplexity. 
 We provide common interfaces to popular existing benchmarks in the medical space.
 From any benchmark you can get a `Dataset`, which is an iterable of inputs and expected outputs.
-You can then use this dataset for evaluation. 
+You can then use this dataset for evaluation.
 
 ```python
-from medplexity.benchmarks.medqa.medqa_dataset_builder import MedQADatasetBuilder
+from medplexity.benchmarks.medqa.medqa_dataset_builder import MedQADatasetFactory
 
 # Get validation split of MedQA dataset.
-dataset = MedQADatasetBuilder().build_dataset(split_type="validation")
+dataset = MedQADatasetFactory().build_dataset(split_type="validation")
 
 # It's an iterable of Datapoints, where each datapoint has an input and an expected output, as well as any other metadata.
 dataset[0]
