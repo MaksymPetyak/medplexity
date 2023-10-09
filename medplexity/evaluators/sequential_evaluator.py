@@ -51,13 +51,14 @@ class SequentialEvaluator(Evaluator):
                         results.failed_evaluations.append(data_point)
                         continue
 
-                are_outputs_equal = False
-                if self.comparator:
-                    are_outputs_equal = self.comparator(
-                        data_point.expected_output, chain_output
-                    )
-                else:
-                    are_outputs_equal = data_point.expected_output == chain_output
+                correct = None
+                if data_point.expected_output is not None:
+                    if self.comparator:
+                        correct = self.comparator(
+                            data_point.expected_output, chain_output
+                        )
+                    else:
+                        correct = data_point.expected_output == chain_output
 
                 results.evaluation_results.append(
                     EvaluationResult(
@@ -66,7 +67,7 @@ class SequentialEvaluator(Evaluator):
                         expected_output=data_point.expected_output,
                         output=chain_output,
                         output_metadata=output_metadata,
-                        correct=are_outputs_equal,
+                        correct=correct,
                     )
                 )
             except Exception as e:

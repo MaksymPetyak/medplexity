@@ -12,7 +12,8 @@ class EvaluationResult(BaseModel):
     output: Any
     output_metadata: Any
 
-    correct: bool
+    # Can be None if the output is not comparable
+    correct: bool | None
 
     def __repr__(self):
         return self.model_dump_json(indent=4)
