@@ -6,6 +6,11 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 [![Open in Colab](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/github/MaksymPetyak/medplexity/blob/main/notebooks/Getting%20started.ipynb)
 
+<p style="text-align: center;">
+  <a href="https://www.medplexityai.com/">Medplexity explorer</a> •
+  <a href="https://github.com/MaksymPetyak/medplexity-frontend">Frontend GitHub repository</a>
+</p>
+
 
 Medplexity is a python library to help with evaluation of LLMs for medical applications.
 
@@ -62,10 +67,15 @@ Some initial todos include:
     - [ ] Wrapper for HuggingFace text-gen
 - [x] Jupyter notebook quickstart
 - [x] Example with langchain integration
-- [ ] Visualisation of results
-  - [ ] Add export of evaluations
-  - [ ] Frontend for exploring exported results
+- [x] Visualisation of results
+  - [x] Add export of evaluations
+  - [x] Frontend for exploring exported results
 
+
+## Explorer
+In addition to the library, we are also building a web app to explore the results of evaluations.
+The explorer is available at [medplexityai.com](https://www.medplexityai.com/).
+It's also open-sourced, see the [frontend repository](https://github.com/MaksymPetyak/medplexity-frontend).
 
 ## 📜 License
 Medplexity is licensed under the MIT License. See the LICENSE file for more details.
