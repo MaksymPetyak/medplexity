@@ -1,4 +1,5 @@
 from enum import Enum
+from pathlib import Path
 from typing import Literal
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
@@ -40,6 +41,8 @@ class MedQADatasetBuilder(DatasetBuilder):
 
     We use the following version uploaded on HuggingFace datasets: <https://huggingface.co/datasets/bigbio/med_qa>
     """
+
+    EXAMPLE_QUESTIONS_PATH = Path(__file__).resolve().parent / "examples.json"
 
     def build_dataset(
         self,

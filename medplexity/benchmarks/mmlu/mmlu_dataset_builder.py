@@ -1,4 +1,5 @@
 from enum import Enum
+from pathlib import Path
 from typing import Literal
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
@@ -44,6 +45,8 @@ class MMLUDatasetBuilder(DatasetBuilder):
 
     We use the version on the hugging face datasets: <https://huggingface.co/datasets/lukaemon/mmlu>
     """
+
+    EXAMPLE_QUESTIONS_PATH = Path(__file__).resolve().parent / "examples.json"
 
     def build_dataset(
         self,

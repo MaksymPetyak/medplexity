@@ -1,4 +1,5 @@
 from enum import Enum
+from pathlib import Path
 from typing import Literal, List
 
 from pydantic import BaseModel
@@ -56,6 +57,8 @@ class PubmedQADatasetBuilder(DatasetBuilder):
 
     Dataset version used: `https://huggingface.co/datasets/pubmed_qa`
     """
+
+    EXAMPLE_QUESTIONS_PATH = Path(__file__).resolve().parent / "examples.json"
 
     def build_dataset(
         self, split_type: PubMedQADatasetSplitType = "train", config=None

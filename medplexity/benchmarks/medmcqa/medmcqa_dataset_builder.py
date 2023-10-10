@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Literal
 
 from datasets import load_dataset
@@ -39,6 +40,8 @@ class MedMCQADatasetBuilder(DatasetBuilder):
 
     Dataset version used: <https://huggingface.co/datasets/medmcqa>
     """
+
+    EXAMPLE_QUESTIONS_PATH = Path(__file__).resolve().parent / "examples.json"
 
     def build_dataset(
         self, split_type: MedMCQADatasetSplitType, config=None
