@@ -19,7 +19,10 @@ class Medharness:
         self.result: EvaluationSummary | None = None
 
     def run(
-        self, max_k: int | None = None, evaluator: Evaluator = SequentialEvaluator()
+        self,
+        max_k: int | None = None,
+        evaluator: Evaluator = SequentialEvaluator(),
+        ignore_errors: bool = False,
     ) -> EvaluationSummary:
         """Run the evaluation on the dataset with the provided chain. Results are stored in self.result.
 
@@ -39,8 +42,7 @@ class Medharness:
             dataset = self.dataset
 
         result = evaluator.evaluate(
-            dataset=dataset,
-            chain=self.chain,
+            dataset=dataset, chain=self.chain, ignore_errors=ignore_errors
         )
 
         self.result = result

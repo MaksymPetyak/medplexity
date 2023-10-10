@@ -4,6 +4,7 @@ from medplexity.benchmarks.healthsearchqa.healthsearchqa_dataset_builder import 
 from medplexity.benchmarks.medicationqa.medicationqa_dataset_builder import (
     MedicationQADatasetBuilder,
 )
+from medplexity.benchmarks.medmcqa.medmcqa_dataset_builder import MedMCQADatasetBuilder
 from medplexity.benchmarks.medqa.medqa_dataset_builder import MedQADatasetBuilder
 from medplexity.benchmarks.mmlu.mmlu_dataset_builder import MMLUDatasetBuilder
 from medplexity.benchmarks.pubmedqa.pubmedqa_dataset_builder import (
@@ -15,7 +16,7 @@ class DatasetFactory:
     DATASET_NAME_TO_BUILDER = {
         "healthsearchqa": HealthSearchQADatasetBuilder(),
         "medicationqa": MedicationQADatasetBuilder(),
-        "medmcqa": MedicationQADatasetBuilder(),
+        "medmcqa": MedMCQADatasetBuilder(),
         "medqa": MedQADatasetBuilder(),
         "mmlu": MMLUDatasetBuilder(),
         "pubmedqa": PubmedQADatasetBuilder(),

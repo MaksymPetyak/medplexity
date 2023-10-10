@@ -49,7 +49,7 @@ class MultipleChoiceEvaluationChain(Chain):
         completed_prompt = self.prompt.format(
             question=input.question,
             options=input.options,
-            context=input.context,
+            context=input.context if input.context is not None else "",
             examples=examples if self.examples is not None else "",
         )
 
@@ -75,4 +75,6 @@ class MultipleChoiceEvaluationChain(Chain):
             answer = explanation_match.group(2)
             return explanation, f"({answer})"
         else:
-            raise ValueError("Could not extract explanation and answer from completion")
+            raise ValueError(
+                f"Could not extract explanation and answer from completion: {completion}"
+            )

@@ -4,6 +4,7 @@ from datasets import load_dataset
 from pydantic import BaseModel
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.medmcqa.models import MedMCQAQuestion
 from medplexity.benchmarks.multiple_choice_utils import (
     MultipleChoiceInput,
     INDEX_TO_OPTION,
@@ -18,7 +19,7 @@ class MedMCQAOutputMetadata(BaseModel):
 
 class MedMCQADataPoint(DataPoint):
     input: MultipleChoiceInput
-    expected_output: int
+    expected_output: str
     metadata: MedMCQAOutputMetadata
 
 
@@ -42,7 +43,9 @@ class MedMCQADatasetBuilder(DatasetBuilder):
     def build_dataset(
         self, split_type: MedMCQADatasetSplitType, config=None
     ) -> Dataset[MedMCQADataPoint]:
-        questions = load_dataset("medmcqa", split=split_type)
+        dataset = load_dataset("medmcqa", split=split_type)
+
+        dataset = [MedMCQAQuestion(**row) for row in dataset]
 
         data_points = [
             MedMCQADataPoint(
@@ -56,7 +59,7 @@ class MedMCQADatasetBuilder(DatasetBuilder):
                     subject_name=question.subject_name,
                 ),
             )
-            for question in questions
+            for question in dataset
             if question.cop is not None
         ]
 

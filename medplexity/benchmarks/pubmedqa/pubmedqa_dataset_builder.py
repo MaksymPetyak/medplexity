@@ -77,7 +77,7 @@ class PubmedQADatasetBuilder(DatasetBuilder):
                     context=" ".join(question.context.contexts),
                 ),
                 expected_output=format_answer_to_letter(
-                    options, question.final_decision
+                    options, question.final_decision.value.capitalize().strip()
                 ),
                 metadata=PubmedQAMetadata(
                     explanation=question.long_answer,
