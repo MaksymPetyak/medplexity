@@ -13,17 +13,16 @@ class SequentialEvaluator(Evaluator):
 
     def __init__(
         self,
-        chain: Chain,
         format_checker: Optional[Callable[[str], bool]] = None,
         comparator=None,
     ):
-        self.chain = chain
         self.format_checker = format_checker
         self.comparator = comparator
 
     def evaluate(
         self,
         dataset: Dataset,
+        chain: Chain,
         max_items: Optional[int] = None,
         ignore_errors: bool = False,
     ) -> EvaluationSummary:
@@ -38,7 +37,7 @@ class SequentialEvaluator(Evaluator):
                 break
 
             try:
-                chain_output = self.chain(data_point.input)
+                chain_output = chain(data_point.input)
                 output_metadata = None
 
                 if isinstance(chain_output, ChainOutput):

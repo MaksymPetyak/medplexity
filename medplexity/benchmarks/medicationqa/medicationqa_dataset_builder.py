@@ -6,10 +6,6 @@ from medplexity.benchmarks.medicationqa.models import MedicationQAEntry
 from medplexity.datasets.dataset import Dataset, DataPoint
 
 
-class MedicationQAInput(BaseModel):
-    question: str
-
-
 class MedicationQAMetaData(BaseModel):
     # Example answer
     answer: str | None
@@ -20,7 +16,7 @@ class MedicationQAMetaData(BaseModel):
 
 
 class MedicationQADataPoint(DataPoint):
-    input: MedicationQAInput
+    input: str
     expected_output: None
     metadata: MedicationQAMetaData
 
@@ -39,18 +35,16 @@ class MedicationQADatasetBuilder(DatasetBuilder):
 
     def build_dataset(
         self,
+        split_type: str = "train",
+        config=None,
     ) -> Dataset[MedicationQADataPoint]:
-        # No splitting, so just set split='train'
-        dataset = load_dataset("truehealth/medicationqa", split="train")
+        dataset = load_dataset("truehealth/medicationqa", split=split_type)
 
-        print(dataset[0])
         questions = [MedicationQAEntry(**row) for row in dataset]
 
         data_points = [
             MedicationQADataPoint(
-                input=MedicationQAInput(
-                    question=question.question,
-                ),
+                input=question.question,
                 expected_output=None,
                 metadata=MedicationQAMetaData(
                     answer=question.answer,

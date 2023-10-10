@@ -35,7 +35,7 @@ chain = EvaluationAdapterChain(
 This is one of the main features of medplexity. 
 We provide common interfaces to popular existing benchmarks in the medical space.
 From any benchmark you can get a `Dataset`, which is an iterable of inputs and expected outputs.
-You can then use this dataset for evaluation. 
+You can then use this dataset for evaluation.
 
 ```python
 from medplexity.benchmarks.medqa.medqa_dataset_builder import MedQADatasetBuilder

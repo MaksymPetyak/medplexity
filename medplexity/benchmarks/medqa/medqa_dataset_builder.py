@@ -1,28 +1,29 @@
+from enum import Enum
+from pathlib import Path
 from typing import Literal
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
 from medplexity.benchmarks.medqa.models import MedQAQuestion
-from pydantic import BaseModel
 
-from medplexity.benchmarks.multiple_choice_utils import format_answer_to_letter
+from medplexity.benchmarks.multiple_choice_utils import (
+    format_answer_to_letter,
+    MultipleChoiceInput,
+)
 from medplexity.datasets.dataset import DataPoint, Dataset
 
 from datasets import load_dataset
 
 
 # TODO: extend and experiment with more types
-MedQASubsetConfig = Literal["med_qa_en_bigbio_qa"]
+class MedQASubsetConfig(str, Enum):
+    med_qa_en_bigbio_qa = "med_qa_en_bigbio_qa"
+
 
 MedQADatasetSplitType = Literal["train", "validation", "test"]
 
 
-class MedQAInput(BaseModel):
-    question: str
-    options: list[str]
-
-
 class MedQADataPoint(DataPoint):
-    input: MedQAInput
+    input: MultipleChoiceInput
     expected_output: str
 
 
@@ -41,28 +42,30 @@ class MedQADatasetBuilder(DatasetBuilder):
     We use the following version uploaded on HuggingFace datasets: <https://huggingface.co/datasets/bigbio/med_qa>
     """
 
+    EXAMPLE_QUESTIONS_PATH = Path(__file__).resolve().parent / "examples.json"
+
     def build_dataset(
         self,
-        config_type: MedQASubsetConfig = "med_qa_en_bigbio_qa",
         split_type: MedQADatasetSplitType = "train",
-        convert_answer_to_multiple_choice: bool = True,
+        config=None,
     ) -> Dataset[MedQADataPoint]:
-        dataset = load_dataset("bigbio/med_qa", config_type, split=split_type)
+        if config is None:
+            config = {"subset": MedQASubsetConfig.med_qa_en_bigbio_qa}
+
+        dataset = load_dataset("bigbio/med_qa", config["subset"], split=split_type)
 
         questions = [MedQAQuestion(**row) for row in dataset]
 
         data_points = [
             MedQADataPoint(
-                input=MedQAInput(
+                input=MultipleChoiceInput(
                     question=question.question,
                     options=question.choices,
                 ),
                 # always expect just one answer
                 expected_output=format_answer_to_letter(
                     question.choices, question.answer[0]
-                )
-                if convert_answer_to_multiple_choice
-                else question.answer[0],
+                ),
                 metadata=None,
             )
             for question in questions

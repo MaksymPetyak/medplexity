@@ -1,9 +1,15 @@
+from enum import Enum
+from pathlib import Path
 from typing import Literal, List
 
 from pydantic import BaseModel
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
-from medplexity.benchmarks.pubmedqa.models import PubmedQADecision, PubMedQAQuestion
+from medplexity.benchmarks.multiple_choice_utils import (
+    MultipleChoiceInput,
+    format_answer_to_letter,
+)
+from medplexity.benchmarks.pubmedqa.models import PubMedQAQuestion
 from medplexity.datasets.dataset import DataPoint, Dataset
 
 from datasets import load_dataset
@@ -11,16 +17,15 @@ from datasets import load_dataset
 # Only train split is available
 PubMedQADatasetSplitType = Literal["train"]
 
+
 # config types
 # "pqa_artificial"
 # "pqa_labeled"
 # "pqa_unlabeled"
-PubMedQADatasetConfigType = Literal["pqa_artificial", "pqa_labeled", "pqa_unlabeled"]
-
-
-class PubmedQAInput(BaseModel):
-    question: str
-    contexts: list[str]
+class PubMedQADatasetTypes(str, Enum):
+    pqa_artificial = "pqa_artificial"
+    pqa_labeled = "pqa_labeled"
+    pqa_unlabeled = "pqa_unlabeled"
 
 
 class PubmedQAMetadata(BaseModel):
@@ -30,8 +35,8 @@ class PubmedQAMetadata(BaseModel):
 
 
 class PubmedQADataPoint(DataPoint):
-    input: PubmedQAInput
-    expected_output: PubmedQADecision
+    input: MultipleChoiceInput
+    expected_output: str
     metadata: PubmedQAMetadata
 
 
@@ -53,22 +58,30 @@ class PubmedQADatasetBuilder(DatasetBuilder):
     Dataset version used: `https://huggingface.co/datasets/pubmed_qa`
     """
 
+    EXAMPLE_QUESTIONS_PATH = Path(__file__).resolve().parent / "examples.json"
+
     def build_dataset(
-        self,
-        config_type: PubMedQADatasetConfigType = "pqa_labeled",
-        split_type: PubMedQADatasetSplitType = "train",
+        self, split_type: PubMedQADatasetSplitType = "train", config=None
     ) -> Dataset[PubmedQADataPoint]:
-        dataset = load_dataset("pubmed_qa", config_type, split=split_type)
+        if config is None:
+            config = {"subset": PubMedQADatasetTypes.pqa_labeled}
+
+        dataset = load_dataset("pubmed_qa", config["subset"], split=split_type)
 
         questions = [PubMedQAQuestion(**row) for row in dataset]
 
+        options = ["Yes", "No", "Maybe"]
+
         data_points = [
             PubmedQADataPoint(
-                input=PubmedQAInput(
+                input=MultipleChoiceInput(
                     question=question.question,
-                    contexts=question.context.contexts,
+                    options=options,
+                    context=" ".join(question.context.contexts),
                 ),
-                expected_output=question.final_decision,
+                expected_output=format_answer_to_letter(
+                    options, question.final_decision.value.capitalize().strip()
+                ),
                 metadata=PubmedQAMetadata(
                     explanation=question.long_answer,
                     labels=question.context.labels,

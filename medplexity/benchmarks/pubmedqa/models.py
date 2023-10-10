@@ -1,9 +1,13 @@
-from typing import List, Literal
+from enum import Enum
+from typing import List
 
 from pydantic import BaseModel
 
 
-PubmedQADecision = Literal["yes", "no", "maybe"]
+class PubmedQADecision(str, Enum):
+    yes = "yes"
+    no = "no"
+    maybe = "maybe"
 
 
 class Context(BaseModel):

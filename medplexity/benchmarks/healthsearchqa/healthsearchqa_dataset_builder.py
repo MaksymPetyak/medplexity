@@ -1,19 +1,14 @@
 from enum import Enum
 
 from datasets import load_dataset
-from pydantic import BaseModel
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
 from medplexity.benchmarks.healthsearchqa.models import HealthSearchQAQuestion
 from medplexity.datasets.dataset import Dataset, DataPoint
 
 
-class HealthSearchQAInput(BaseModel):
-    question: str
-
-
 class HealthSearchQADataPoint(DataPoint):
-    input: HealthSearchQAInput
+    input: str
     expected_output: None
     metadata: None
 
@@ -39,18 +34,21 @@ class HealthSearchQADatasetBuilder(DatasetBuilder):
 
     def build_dataset(
         self,
-        subset: HealthSearchQASubsetConfig = HealthSearchQASubsetConfig.all_data,
+        split_type: str = "train",
+        config=None,
     ) -> Dataset[HealthSearchQADataPoint]:
-        # No splitting, so just set split='train'
-        dataset = load_dataset("katielink/healthsearchqa", subset, split="train")
+        if config is None:
+            config = {"subset": HealthSearchQASubsetConfig.all_data}
+
+        dataset = load_dataset(
+            "katielink/healthsearchqa", config["subset"], split=split_type
+        )
 
         questions = [HealthSearchQAQuestion(**row) for row in dataset]
 
         data_points = [
             HealthSearchQADataPoint(
-                input=HealthSearchQAInput(
-                    question=question.question,
-                ),
+                input=question.question,
                 expected_output=None,
                 metadata=None,
             )

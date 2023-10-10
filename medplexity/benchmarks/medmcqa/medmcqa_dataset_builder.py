@@ -1,16 +1,16 @@
+from pathlib import Path
+from typing import Literal
+
+from datasets import load_dataset
 from pydantic import BaseModel
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
-from medplexity.benchmarks.medmcqa.medmcqa_loader import (
-    MedMCQALoader,
-    MedMCQADatasetSplitType,
+from medplexity.benchmarks.medmcqa.models import MedMCQAQuestion
+from medplexity.benchmarks.multiple_choice_utils import (
+    MultipleChoiceInput,
+    INDEX_TO_OPTION,
 )
 from medplexity.datasets.dataset import DataPoint, Dataset
-
-
-class MedMCQAInput(BaseModel):
-    question: str
-    options: list[str]
 
 
 class MedMCQAOutputMetadata(BaseModel):
@@ -19,9 +19,12 @@ class MedMCQAOutputMetadata(BaseModel):
 
 
 class MedMCQADataPoint(DataPoint):
-    input: MedMCQAInput
-    expected_output: int
+    input: MultipleChoiceInput
+    expected_output: str
     metadata: MedMCQAOutputMetadata
+
+
+MedMCQADatasetSplitType = Literal["train", "validation", "test"]
 
 
 class MedMCQADatasetBuilder(DatasetBuilder):
@@ -38,27 +41,28 @@ class MedMCQADatasetBuilder(DatasetBuilder):
     Dataset version used: <https://huggingface.co/datasets/medmcqa>
     """
 
-    def __init__(self, loader: MedMCQALoader | None = None):
-        self.loader = loader or MedMCQALoader()
+    EXAMPLE_QUESTIONS_PATH = Path(__file__).resolve().parent / "examples.json"
 
     def build_dataset(
-        self, split_type: MedMCQADatasetSplitType
+        self, split_type: MedMCQADatasetSplitType, config=None
     ) -> Dataset[MedMCQADataPoint]:
-        questions = self.loader.load_questions(split_type)
+        dataset = load_dataset("medmcqa", split=split_type)
+
+        dataset = [MedMCQAQuestion(**row) for row in dataset]
 
         data_points = [
             MedMCQADataPoint(
-                input=MedMCQAInput(
+                input=MultipleChoiceInput(
                     question=question.question,
                     options=[question.opa, question.opb, question.opc, question.opd],
                 ),
-                expected_output=question.cop,
+                expected_output=INDEX_TO_OPTION[question.cop],
                 metadata=MedMCQAOutputMetadata(
                     explanation=question.exp,
                     subject_name=question.subject_name,
                 ),
             )
-            for question in questions
+            for question in dataset
             if question.cop is not None
         ]
 

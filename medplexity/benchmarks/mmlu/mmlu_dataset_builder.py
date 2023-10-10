@@ -1,10 +1,10 @@
 from enum import Enum
+from pathlib import Path
 from typing import Literal
-
-from pydantic import BaseModel
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
 from medplexity.benchmarks.mmlu.models import MMLUQuestion
+from medplexity.benchmarks.multiple_choice_utils import MultipleChoiceInput
 from medplexity.datasets.dataset import DataPoint, Dataset
 
 from datasets import load_dataset
@@ -22,13 +22,8 @@ class MMLUSubsetConfig(str, Enum):
 MMLUQADatasetSplitType = Literal["train", "validation", "test"]
 
 
-class MMLUInput(BaseModel):
-    question: str
-    options: list[str]
-
-
 class MMLUDataPoint(DataPoint):
-    input: MMLUInput
+    input: MultipleChoiceInput
     expected_output: str
 
 
@@ -51,18 +46,23 @@ class MMLUDatasetBuilder(DatasetBuilder):
     We use the version on the hugging face datasets: <https://huggingface.co/datasets/lukaemon/mmlu>
     """
 
+    EXAMPLE_QUESTIONS_PATH = Path(__file__).resolve().parent / "examples.json"
+
     def build_dataset(
         self,
-        config_type: MMLUSubsetConfig = MMLUSubsetConfig.clinical_knowledge,
         split_type: MMLUQADatasetSplitType = "train",
+        config=None,
     ) -> Dataset[MMLUDataPoint]:
-        dataset = load_dataset("lukaemon/mmlu", config_type, split=split_type)
+        if config is None:
+            config = {"subset": MMLUSubsetConfig.clinical_knowledge}
+
+        dataset = load_dataset("lukaemon/mmlu", config["subset"], split=split_type)
 
         questions = [MMLUQuestion(**row) for row in dataset]
 
         data_points = [
             MMLUDataPoint(
-                input=MMLUInput(
+                input=MultipleChoiceInput(
                     question=question.input,
                     options=[question.A, question.B, question.C, question.D],
                 ),
