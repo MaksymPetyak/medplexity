@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "medplexity"
-version = "0.1.4"
+version = "0.1.5"
 description = "medplexity helps with evaluation of LLMs for medical use-cases."
 license = "MIT"
 authors = ["MaksymPetyak <petyak.mi@gmail.com>"]
