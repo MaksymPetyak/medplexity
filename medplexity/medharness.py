@@ -20,14 +20,14 @@ class Medharness:
 
     def run(
         self,
-        max_k: int | None = None,
+        k: int | None = None,
         evaluator: Evaluator = SequentialEvaluator(),
         ignore_errors: bool = False,
     ) -> EvaluationSummary:
         """Run the evaluation on the dataset with the provided chain. Results are stored in self.result.
 
         Args:
-            max_k (int | None, optional): Limit the dataset to the first max_k items.
+            k (int | None, optional): Limit the dataset to the first k items.
                 Defaults to None, which means the entire dataset will be used.
             evaluator (Evaluator, optional): Evaluator to be used for the evaluation.
                 Defaults to SequentialEvaluator.
@@ -36,8 +36,8 @@ class Medharness:
             EvaluationSummary: Results of the evaluation.
         """
 
-        if max_k:
-            dataset = self.dataset[:max_k]
+        if k:
+            dataset = self.dataset[:k]
         else:
             dataset = self.dataset
 
