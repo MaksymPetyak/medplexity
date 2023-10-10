@@ -9,14 +9,17 @@ class MultipleChoicePromptExample(BaseModel):
     options: list[str]
     explanation: str
     answer: str
+    context: str | None = None
+
+
+class MultipleChoiceInput(BaseModel):
+    question: str
+    options: list[str]
+    context: str | None = None
+    examples: str | None = None
 
 
 MultipleChoiceExampleQuestions = RootModel[List[MultipleChoicePromptExample]]
-
-
-class AnswerWithExplanation(BaseModel):
-    answer: str
-    explanation: str
 
 
 INDEX_TO_OPTION = {0: "(A)", 1: "(B)", 2: "(C)", 3: "(D)", 4: "(E)"}
@@ -36,24 +39,12 @@ def format_answer_to_letter(options: List[str], answer: str) -> str:
 
 def load_example_questions_from_json(
     file_path: Path | str,
-) -> MultipleChoiceExampleQuestions:
+) -> list[MultipleChoicePromptExample]:
     with open(file_path, "r") as f:
-        examples = MultipleChoiceExampleQuestions.model_validate_json(f.read())
+        examples_wrapper = MultipleChoiceExampleQuestions.model_validate_json(f.read())
+
+        examples = examples_wrapper.root
+        for example in examples:
+            example.answer = format_answer_to_letter(example.options, example.answer)
 
         return examples
-
-
-def build_example_questions(file_path: Path | str) -> List[str]:
-    examples = load_example_questions_from_json(file_path)
-
-    return [
-        "Question: {question}\n {options}\nOutput: {output}\n".format(
-            question=example.question,
-            options=format_options(example.options),
-            output=AnswerWithExplanation(
-                answer=format_answer_to_letter(example.options, example.answer),
-                explanation=example.explanation,
-            ).model_dump_json(indent=None),
-        )
-        for example in examples.root
-    ]

@@ -1,9 +1,14 @@
+from enum import Enum
 from typing import Literal, List
 
 from pydantic import BaseModel
 
-from medplexity.benchmarks.dataset_factory import DatasetFactory
-from medplexity.benchmarks.pubmedqa.models import PubmedQADecision, PubMedQAQuestion
+from medplexity.benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.multiple_choice_utils import (
+    MultipleChoiceInput,
+    format_answer_to_letter,
+)
+from medplexity.benchmarks.pubmedqa.models import PubMedQAQuestion
 from medplexity.datasets.dataset import DataPoint, Dataset
 
 from datasets import load_dataset
@@ -11,16 +16,15 @@ from datasets import load_dataset
 # Only train split is available
 PubMedQADatasetSplitType = Literal["train"]
 
+
 # config types
 # "pqa_artificial"
 # "pqa_labeled"
 # "pqa_unlabeled"
-PubMedQADatasetConfigType = Literal["pqa_artificial", "pqa_labeled", "pqa_unlabeled"]
-
-
-class PubmedQAInput(BaseModel):
-    question: str
-    contexts: list[str]
+class PubMedQADatasetTypes(str, Enum):
+    pqa_artificial = "pqa_artificial"
+    pqa_labeled = "pqa_labeled"
+    pqa_unlabeled = "pqa_unlabeled"
 
 
 class PubmedQAMetadata(BaseModel):
@@ -30,12 +34,12 @@ class PubmedQAMetadata(BaseModel):
 
 
 class PubmedQADataPoint(DataPoint):
-    input: PubmedQAInput
-    expected_output: PubmedQADecision
+    input: MultipleChoiceInput
+    expected_output: str
     metadata: PubmedQAMetadata
 
 
-class PubmedQADatasetFactory(DatasetFactory):
+class PubmedQADatasetBuilder(DatasetBuilder):
     """PubMedQA is a biomedical QA dataset designed to answer research questions with yes/no/maybe. The dataset consists of 1k expert-annotated questions, 61.2k unlabeled questions, and an additional 211.3k artificially generated QA instances. Every instance contains a question sourced or derived from a research article title, context from the abstract without its conclusion, a long answer in the form of the abstract's conclusion, and a summarized yes/no/maybe answer.
 
     Original paper: PubMedQA: A Dataset for Biomedical Research Question Answering
@@ -54,21 +58,27 @@ class PubmedQADatasetFactory(DatasetFactory):
     """
 
     def build_dataset(
-        self,
-        config_type: PubMedQADatasetConfigType = "pqa_labeled",
-        split_type: PubMedQADatasetSplitType = "train",
+        self, split_type: PubMedQADatasetSplitType = "train", config=None
     ) -> Dataset[PubmedQADataPoint]:
-        dataset = load_dataset("pubmed_qa", config_type, split=split_type)
+        if config is None:
+            config = {"subset": PubMedQADatasetTypes.pqa_labeled}
+
+        dataset = load_dataset("pubmed_qa", config["subset"], split=split_type)
 
         questions = [PubMedQAQuestion(**row) for row in dataset]
 
+        options = ["Yes", "No", "Maybe"]
+
         data_points = [
             PubmedQADataPoint(
-                input=PubmedQAInput(
+                input=MultipleChoiceInput(
                     question=question.question,
-                    contexts=question.context.contexts,
+                    options=options,
+                    context=" ".join(question.context.contexts),
                 ),
-                expected_output=question.final_decision,
+                expected_output=format_answer_to_letter(
+                    options, question.final_decision
+                ),
                 metadata=PubmedQAMetadata(
                     explanation=question.long_answer,
                     labels=question.context.labels,

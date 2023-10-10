@@ -3,13 +3,12 @@ from typing import Literal
 from datasets import load_dataset
 from pydantic import BaseModel
 
-from medplexity.benchmarks.dataset_factory import DatasetFactory
+from medplexity.benchmarks.dataset_builder import DatasetBuilder
+from medplexity.benchmarks.multiple_choice_utils import (
+    MultipleChoiceInput,
+    INDEX_TO_OPTION,
+)
 from medplexity.datasets.dataset import DataPoint, Dataset
-
-
-class MedMCQAInput(BaseModel):
-    question: str
-    options: list[str]
 
 
 class MedMCQAOutputMetadata(BaseModel):
@@ -18,7 +17,7 @@ class MedMCQAOutputMetadata(BaseModel):
 
 
 class MedMCQADataPoint(DataPoint):
-    input: MedMCQAInput
+    input: MultipleChoiceInput
     expected_output: int
     metadata: MedMCQAOutputMetadata
 
@@ -26,7 +25,7 @@ class MedMCQADataPoint(DataPoint):
 MedMCQADatasetSplitType = Literal["train", "validation", "test"]
 
 
-class MedMCQADatasetFactory(DatasetFactory):
+class MedMCQADatasetBuilder(DatasetBuilder):
     """Multiple-choice questions designed to address real-world medical entrance exam questions like AIIMS & NEET PG.
     This dataset encompasses over 194k high-quality MCQs spanning 2.4k healthcare topics and 21 medical subjects. Questions are accompanied by an explanation of the correct answer.
 
@@ -41,17 +40,17 @@ class MedMCQADatasetFactory(DatasetFactory):
     """
 
     def build_dataset(
-        self, split_type: MedMCQADatasetSplitType
+        self, split_type: MedMCQADatasetSplitType, config=None
     ) -> Dataset[MedMCQADataPoint]:
         questions = load_dataset("medmcqa", split=split_type)
 
         data_points = [
             MedMCQADataPoint(
-                input=MedMCQAInput(
+                input=MultipleChoiceInput(
                     question=question.question,
                     options=[question.opa, question.opb, question.opc, question.opd],
                 ),
-                expected_output=question.cop,
+                expected_output=INDEX_TO_OPTION[question.cop],
                 metadata=MedMCQAOutputMetadata(
                     explanation=question.exp,
                     subject_name=question.subject_name,

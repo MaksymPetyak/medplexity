@@ -38,10 +38,10 @@ From any benchmark you can get a `Dataset`, which is an iterable of inputs and e
 You can then use this dataset for evaluation.
 
 ```python
-from medplexity.benchmarks.medqa.medqa_dataset_builder import MedQADatasetFactory
+from medplexity.benchmarks.medqa.medqa_dataset_builder import MedQADatasetBuilder
 
 # Get validation split of MedQA dataset.
-dataset = MedQADatasetFactory().build_dataset(split_type="validation")
+dataset = MedQADatasetBuilder().build_dataset(split_type="validation")
 
 # It's an iterable of Datapoints, where each datapoint has an input and an expected output, as well as any other metadata.
 dataset[0]

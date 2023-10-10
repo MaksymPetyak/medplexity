@@ -3,7 +3,7 @@ from enum import Enum
 from datasets import load_dataset
 from pydantic import BaseModel
 
-from medplexity.benchmarks.dataset_factory import DatasetFactory
+from medplexity.benchmarks.dataset_builder import DatasetBuilder
 from medplexity.benchmarks.healthsearchqa.models import HealthSearchQAQuestion
 from medplexity.datasets.dataset import Dataset, DataPoint
 
@@ -23,7 +23,7 @@ class HealthSearchQASubsetConfig(str, Enum):
     _140_question_subset = "140_question_subset"
 
 
-class HealthSearchQADatasetFactory(DatasetFactory):
+class HealthSearchQADatasetBuilder(DatasetBuilder):
     """Dataset of consumer health questions released by Google for the Med-PaLM paper.
     This HealthSearchQA dataset consists of 3,173 commonly searched consumer health questions. These questions were curated using seed medical conditions and their associated symptoms, reflecting real-world consumer concerns in the healthcare domain.
 
@@ -39,10 +39,15 @@ class HealthSearchQADatasetFactory(DatasetFactory):
 
     def build_dataset(
         self,
-        subset: HealthSearchQASubsetConfig = HealthSearchQASubsetConfig.all_data,
+        split_type: str = "train",
+        config=None,
     ) -> Dataset[HealthSearchQADataPoint]:
-        # No splitting, so just set split='train'
-        dataset = load_dataset("katielink/healthsearchqa", subset, split="train")
+        if config is None:
+            config = {"subset": HealthSearchQASubsetConfig.all_data}
+
+        dataset = load_dataset(
+            "katielink/healthsearchqa", config["subset"], split=split_type
+        )
 
         questions = [HealthSearchQAQuestion(**row) for row in dataset]
 
