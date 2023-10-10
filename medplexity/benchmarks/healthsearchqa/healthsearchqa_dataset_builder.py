@@ -1,19 +1,14 @@
 from enum import Enum
 
 from datasets import load_dataset
-from pydantic import BaseModel
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
 from medplexity.benchmarks.healthsearchqa.models import HealthSearchQAQuestion
 from medplexity.datasets.dataset import Dataset, DataPoint
 
 
-class HealthSearchQAInput(BaseModel):
-    question: str
-
-
 class HealthSearchQADataPoint(DataPoint):
-    input: HealthSearchQAInput
+    input: str
     expected_output: None
     metadata: None
 
@@ -53,9 +48,7 @@ class HealthSearchQADatasetBuilder(DatasetBuilder):
 
         data_points = [
             HealthSearchQADataPoint(
-                input=HealthSearchQAInput(
-                    question=question.question,
-                ),
+                input=question.question,
                 expected_output=None,
                 metadata=None,
             )
