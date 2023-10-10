@@ -35,7 +35,7 @@ Documentation can be found [here](https://medplexity.readthedocs.io/en/latest/).
 
 
 ## Example
-See our ["Getting Started" notebook](`https://colab.research.google.com/github/MaksymPetyak/medplexity/blob/main/notebooks/Getting%20started.ipynb`) for a full example with MedMCQA dataset.
+See our ["Getting Started" notebook](https://colab.research.google.com/github/MaksymPetyak/medplexity/blob/main/notebooks/Getting%20started.ipynb) for a full example with MedMCQA dataset.
 
 ## Contributions
 
