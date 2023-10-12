@@ -1,7 +1,3 @@
-import re
-
-from pydantic import BaseModel
-
 from medplexity.benchmarks.multiple_choice_utils import (
     MultipleChoiceInput,
     MultipleChoicePromptExample,
@@ -9,11 +5,6 @@ from medplexity.benchmarks.multiple_choice_utils import (
 from medplexity.chains.chain import Chain, ChainOutput
 from medplexity.llms.llm import LLM
 from medplexity.prompts.multiple_choice_prompt import MultipleChoiceChainOfThoughtPrompt
-
-
-class AnswerWithExplanation(BaseModel):
-    answer: str
-    explanation: str
 
 
 class MultipleChoiceEvaluationChain(Chain):
@@ -55,26 +46,12 @@ class MultipleChoiceEvaluationChain(Chain):
 
         output = self.llm(completed_prompt)
 
-        explanation, answer = self._extract_explanation_and_answer(output)
+        parsed_output = self.prompt.extract_explanation_and_answer(output)
 
         return ChainOutput(
-            output=answer,
+            output=parsed_output.answer,
             output_metadata={
-                "explanation": explanation,
+                "explanation": parsed_output.explanation,
                 "prompt": completed_prompt if self.save_prompt else None,
             },
         )
-
-    def _extract_explanation_and_answer(self, completion: str):
-        explanation_match = re.search(
-            r"Explanation: (.*?)\s+Answer: \((\w)\)", completion
-        )
-
-        if explanation_match:
-            explanation = explanation_match.group(1)
-            answer = explanation_match.group(2)
-            return explanation, f"({answer})"
-        else:
-            raise ValueError(
-                f"Could not extract explanation and answer from completion: {completion}"
-            )

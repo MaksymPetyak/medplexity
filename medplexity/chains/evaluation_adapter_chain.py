@@ -12,7 +12,7 @@ class EvaluationAdapterChain(Chain):
         llm: LLM = None,
         chain: Chain = None,
         input_adapter: Optional[Callable[[Any], str]] = None,
-        output_adapter: Optional[Callable[[str], Any]] = None,
+        output_adapter: Optional[Callable[[Any], Any]] = None,
     ):
         self.input_adapter = input_adapter
         self.output_adapter = output_adapter

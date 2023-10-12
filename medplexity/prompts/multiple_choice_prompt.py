@@ -1,7 +1,15 @@
+import re
 import string
 from typing import List
 
+from pydantic import BaseModel
+
 from medplexity.prompts.prompt import Prompt
+
+
+class AnswerWithExplanation(BaseModel):
+    answer: str
+    explanation: str
 
 
 class MultipleChoiceChainOfThoughtPrompt(Prompt):
@@ -15,11 +23,16 @@ Answer: {answer}"""
 
     PROMPT = """Instructions: The following are multiple choice questions about medical knowledge. Solve them in a step-by-step fashion,
 starting by summarizing the available information. Output a single option from the given options as the final answer.
-{examples}
-
+{examples}{answer_template}
 {context}
 Question: {question}
 {options}
+"""
+
+    # If there are no examples provided we additionally provide a template for the answer
+    ANSWER_TEMPLATE = """Use the following format for your answer:
+Explanation: Reasoning for your answer
+Answer: (A) | (B) | (C), etc. Give only the option and nothing else.
 """
 
     def format(
@@ -30,6 +43,7 @@ Question: {question}
             options=self.format_options(options),
             context=context,
             examples=examples,
+            answer_template=self.ANSWER_TEMPLATE if examples == "" else "",
         )
 
     def format_example(
@@ -49,7 +63,7 @@ Question: {question}
         )
 
     def format_options(self, options: List[str]):
-        """Uses letter format "(A)" for formatting options fro questions."""
+        """Uses letter format "(A)" for formatting options for questions."""
 
         if len(options) > len(string.ascii_uppercase):
             raise ValueError("Too many options for standard multiple-choice formatting")
@@ -60,3 +74,22 @@ Question: {question}
         ]
 
         return " ".join(formatted_options)
+
+    @staticmethod
+    def extract_explanation_and_answer(completion: str) -> AnswerWithExplanation:
+        """Helper function to parse the expected completion format and extract the explanation and answer."""
+        explanation_match = re.search(
+            r"Explanation: (.*?)\s+Answer: \((\w)\)", completion
+        )
+
+        if explanation_match:
+            explanation = explanation_match.group(1)
+            answer = explanation_match.group(2)
+            return AnswerWithExplanation(
+                answer=f"({answer})",
+                explanation=explanation,
+            )
+        else:
+            raise ValueError(
+                f"Could not extract explanation and answer from completion: {completion}"
+            )
