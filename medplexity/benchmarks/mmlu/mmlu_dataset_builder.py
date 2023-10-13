@@ -7,8 +7,6 @@ from medplexity.benchmarks.mmlu.models import MMLUQuestion
 from medplexity.benchmarks.multiple_choice_utils import MultipleChoiceInput
 from medplexity.datasets.dataset import DataPoint, Dataset
 
-from datasets import load_dataset
-
 
 class MMLUSubsetConfig(str, Enum):
     clinical_knowledge = "clinical_knowledge"
@@ -56,7 +54,7 @@ class MMLUDatasetBuilder(DatasetBuilder):
         if config is None:
             config = {"subset": MMLUSubsetConfig.clinical_knowledge}
 
-        dataset = load_dataset("lukaemon/mmlu", config["subset"], split=split_type)
+        dataset = self.loader.load("lukaemon/mmlu", config["subset"], split=split_type)
 
         questions = [MMLUQuestion(**row) for row in dataset]
 

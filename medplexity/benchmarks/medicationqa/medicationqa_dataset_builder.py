@@ -1,4 +1,3 @@
-from datasets import load_dataset
 from pydantic import BaseModel
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
@@ -38,7 +37,7 @@ class MedicationQADatasetBuilder(DatasetBuilder):
         split_type: str = "train",
         config=None,
     ) -> Dataset[MedicationQADataPoint]:
-        dataset = load_dataset("truehealth/medicationqa", split=split_type)
+        dataset = self.loader.load("truehealth/medicationqa", split=split_type)
 
         questions = [MedicationQAEntry(**row) for row in dataset]
 

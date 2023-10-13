@@ -1,7 +1,5 @@
 from enum import Enum
 
-from datasets import load_dataset
-
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
 from medplexity.benchmarks.healthsearchqa.models import HealthSearchQAQuestion
 from medplexity.datasets.dataset import Dataset, DataPoint
@@ -40,7 +38,7 @@ class HealthSearchQADatasetBuilder(DatasetBuilder):
         if config is None:
             config = {"subset": HealthSearchQASubsetConfig.all_data}
 
-        dataset = load_dataset(
+        dataset = self.loader.load(
             "katielink/healthsearchqa", config["subset"], split=split_type
         )
 

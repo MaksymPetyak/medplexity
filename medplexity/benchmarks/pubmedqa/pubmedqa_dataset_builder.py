@@ -12,8 +12,6 @@ from medplexity.benchmarks.multiple_choice_utils import (
 from medplexity.benchmarks.pubmedqa.models import PubMedQAQuestion
 from medplexity.datasets.dataset import DataPoint, Dataset
 
-from datasets import load_dataset
-
 # Only train split is available
 PubMedQADatasetSplitType = Literal["train"]
 
@@ -66,7 +64,7 @@ class PubmedQADatasetBuilder(DatasetBuilder):
         if config is None:
             config = {"subset": PubMedQADatasetTypes.pqa_labeled}
 
-        dataset = load_dataset("pubmed_qa", config["subset"], split=split_type)
+        dataset = self.loader.load("pubmed_qa", config["subset"], split=split_type)
 
         questions = [PubMedQAQuestion(**row) for row in dataset]
 

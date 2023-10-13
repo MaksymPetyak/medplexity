@@ -11,8 +11,6 @@ from medplexity.benchmarks.multiple_choice_utils import (
 )
 from medplexity.datasets.dataset import DataPoint, Dataset
 
-from datasets import load_dataset
-
 
 # TODO: extend and experiment with more types
 class MedQASubsetConfig(str, Enum):
@@ -52,7 +50,7 @@ class MedQADatasetBuilder(DatasetBuilder):
         if config is None:
             config = {"subset": MedQASubsetConfig.med_qa_en_bigbio_qa}
 
-        dataset = load_dataset("bigbio/med_qa", config["subset"], split=split_type)
+        dataset = self.loader.load("bigbio/med_qa", config["subset"], split=split_type)
 
         questions = [MedQAQuestion(**row) for row in dataset]
 

@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import Literal
 
-from datasets import load_dataset
 from pydantic import BaseModel
 
 from medplexity.benchmarks.dataset_builder import DatasetBuilder
@@ -46,7 +45,7 @@ class MedMCQADatasetBuilder(DatasetBuilder):
     def build_dataset(
         self, split_type: MedMCQADatasetSplitType, config=None
     ) -> Dataset[MedMCQADataPoint]:
-        dataset = load_dataset("medmcqa", split=split_type)
+        dataset = self.loader.load("medmcqa", split=split_type)
 
         dataset = [MedMCQAQuestion(**row) for row in dataset]
 
