@@ -8,7 +8,8 @@
 
 <p align="center">
   <a href="https://www.medplexityai.com/">Medplexity explorer</a> •
-  <a href="https://github.com/MaksymPetyak/medplexity-frontend">Frontend GitHub repository</a>
+  <a href="https://github.com/MaksymPetyak/medplexity-frontend">Frontend GitHub repository</a> •
+  <a href="https://medplexity.substack.com/">Substack</a>
 </p>
 
 
