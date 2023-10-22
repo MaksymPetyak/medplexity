@@ -11,6 +11,7 @@ class Deepinfra(LLM):
     MODELS_AND_ENDPOINTS = {
         "llama-2-70b-chat-hf": "meta-llama/Llama-2-70b-chat-hf",
         "llama-2-7b-chat-hf": "meta-llama/Llama-2-7b-chat-hf",
+        "mistral-7b-instruct": "mistralai/Mistral-7B-Instruct-v0.1",
     }
 
     endpoint_base = "https://api.deepinfra.com/v1/inference/"
@@ -19,11 +20,15 @@ class Deepinfra(LLM):
     max_new_tokens: int = 1024
     temperature: float = 0.0
     top_p: float = 0.9
+    top_k: int = 0
     repetition_penalty: float = 1.0
     stream: bool = False
 
     def __init__(
-        self, api_token: Optional[str] = None, model: str = "llama-2-70b-chat-hf"
+        self,
+        api_token: Optional[str] = None,
+        model: str = "llama-2-70b-chat-hf",
+        **kwargs,
     ):
         self.api_token = api_token or os.getenv("DEEPINFRA_API_KEY")
         if not self.api_token:
@@ -32,6 +37,31 @@ class Deepinfra(LLM):
         if model not in self.MODELS_AND_ENDPOINTS:
             raise ValueError(f"Model {model} is not supported")
         self.model = model
+
+        self._set_params(**kwargs)
+
+    def _set_params(self, **kwargs):
+        valid_params = [
+            "temperature",
+            "max_new_tokens",
+            "top_p",
+            "top_k" "repetition_penalty",
+            "stream",
+        ]
+        for key, value in kwargs.items():
+            if key in valid_params:
+                setattr(self, key, value)
+
+    @property
+    def _default_params(self) -> Dict[str, Any]:
+        return {
+            "max_new_tokens": self.max_new_tokens,
+            "temperature": self.temperature,
+            "top_p": self.top_p,
+            "top_k": self.top_k,
+            "repetition_penalty": self.repetition_penalty,
+            "stream": self.stream,
+        }
 
     def _prepare_payload(self, input_text: str) -> Dict[str, Any]:
         return {
