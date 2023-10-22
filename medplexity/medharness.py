@@ -16,7 +16,7 @@ class Medharness:
         self.dataset = dataset
         self.chain = chain
 
-        self.result: EvaluationSummary | None = None
+        self._result: EvaluationSummary | None = None
 
     def run(
         self,
@@ -60,7 +60,7 @@ class Medharness:
     @property
     def result(self) -> EvaluationSummary:
         """Report the results of the benchmarks."""
-        return self.result
+        return self._result
 
     @result.setter
     def result(self, value):
