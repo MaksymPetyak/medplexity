@@ -7,6 +7,7 @@ from medplexity.benchmarks.medicationqa.medicationqa_dataset_builder import (
 from medplexity.benchmarks.medmcqa.medmcqa_dataset_builder import MedMCQADatasetBuilder
 from medplexity.benchmarks.medqa.medqa_dataset_builder import MedQADatasetBuilder
 from medplexity.benchmarks.mmlu.mmlu_dataset_builder import MMLUDatasetBuilder
+from medplexity.benchmarks.mts_dialog import MTSDialogDatasetBuilder
 from medplexity.benchmarks.pubmedqa.pubmedqa_dataset_builder import (
     PubmedQADatasetBuilder,
 )
@@ -20,6 +21,7 @@ class DatasetFactory:
         "medqa": MedQADatasetBuilder(),
         "mmlu": MMLUDatasetBuilder(),
         "pubmedqa": PubmedQADatasetBuilder(),
+        "mts-dialog": MTSDialogDatasetBuilder(),
     }
 
     def build(self, name: str, split_type: str, config: dict | None = None):

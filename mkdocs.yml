@@ -19,6 +19,7 @@ nav:
       - benchmarks/pubmedqa.md
       - benchmarks/healthsearchqa.md
       - benchmarks/medicationqa.md
+      - benchmarks/mts-dialog.md
   - License: license.md
 #- Release Notes: release-notes.md
 #- Contributing: CONTRIBUTING.md
