@@ -18,11 +18,13 @@ class MTSDialogInput(BaseModel):
 
 class MTSDialogMetadata(BaseModel):
     section_header: str
+    reference_summary: str
 
 
 class MTSDialogDataPoint(DataPoint):
     input: MTSDialogInput
-    expected_output: str
+    # No expected output as summaries will be different we avoid comparison like this
+    expected_output: None
 
 
 class MTSDialogGithubDatasetLoader(Loader):
@@ -86,8 +88,11 @@ class MTSDialogDatasetBuilder(DatasetBuilder):
                 input=MTSDialogInput(
                     dialog=dialog_entry.dialogue,
                 ),
-                expected_output=dialog_entry.section_text,
-                metadata=MTSDialogMetadata(section_header=dialog_entry.section_header),
+                expected_output=None,
+                metadata=MTSDialogMetadata(
+                    section_header=dialog_entry.section_header,
+                    reference_summary=dialog_entry.section_text,
+                ),
             )
             for dialog_entry in dialog_entries
         ]
