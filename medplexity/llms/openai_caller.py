@@ -28,6 +28,7 @@ class OpenAI(LLM):
     openai_proxy: Optional[str] = None
 
     _supported_chat_models = [
+        "gpt-4-1106-preview",
         "gpt-4",
         "gpt-4-0613",
         "gpt-4-32k",
