@@ -43,6 +43,7 @@ class MedicationQADatasetBuilder(DatasetBuilder):
 
         data_points = [
             MedicationQADataPoint(
+                id=f"{split_type}-{i}",
                 input=question.question,
                 expected_output=None,
                 metadata=MedicationQAMetaData(
@@ -53,7 +54,7 @@ class MedicationQADatasetBuilder(DatasetBuilder):
                     url=question.url,
                 ),
             )
-            for question in questions
+            for i, question in enumerate(questions)
         ]
 
         return Dataset[MedicationQADataPoint](

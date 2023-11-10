@@ -72,6 +72,7 @@ class PubmedQADatasetBuilder(DatasetBuilder):
 
         data_points = [
             PubmedQADataPoint(
+                id=f"{split_type}-{i}",
                 input=MultipleChoiceInput(
                     question=question.question,
                     options=options,
@@ -86,7 +87,7 @@ class PubmedQADatasetBuilder(DatasetBuilder):
                     meshes=question.context.meshes,
                 ),
             )
-            for question in questions
+            for i, question in enumerate(questions)
         ]
 
         return Dataset[PubmedQADataPoint](

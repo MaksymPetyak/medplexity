@@ -56,6 +56,7 @@ class MedQADatasetBuilder(DatasetBuilder):
 
         data_points = [
             MedQADataPoint(
+                id=question.id,
                 input=MultipleChoiceInput(
                     question=question.question,
                     options=question.choices,

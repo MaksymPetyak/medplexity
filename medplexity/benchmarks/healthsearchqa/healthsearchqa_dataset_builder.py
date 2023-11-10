@@ -46,6 +46,7 @@ class HealthSearchQADatasetBuilder(DatasetBuilder):
 
         data_points = [
             HealthSearchQADataPoint(
+                id=str(question.id),
                 input=question.question,
                 expected_output=None,
                 metadata=None,

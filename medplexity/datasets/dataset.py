@@ -2,11 +2,11 @@ from typing import Any, List, Generic, TypeVar
 
 from pydantic import BaseModel
 
-
 DataT = TypeVar("DataT")
 
 
 class DataPoint(BaseModel, Generic[DataT]):
+    id: str
     input: DataT
     expected_output: Any
     metadata: Any

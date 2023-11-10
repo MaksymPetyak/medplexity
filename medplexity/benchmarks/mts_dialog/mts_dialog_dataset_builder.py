@@ -85,6 +85,7 @@ class MTSDialogDatasetBuilder(DatasetBuilder):
 
         data_points = [
             MTSDialogDataPoint(
+                id=str(dialog_entry.ID),
                 input=MTSDialogInput(
                     dialog=dialog_entry.dialogue,
                 ),

@@ -60,6 +60,7 @@ class MMLUDatasetBuilder(DatasetBuilder):
 
         data_points = [
             MMLUDataPoint(
+                id=f"{split_type}-{i}",
                 input=MultipleChoiceInput(
                     question=question.input,
                     options=[question.A, question.B, question.C, question.D],
@@ -67,7 +68,7 @@ class MMLUDatasetBuilder(DatasetBuilder):
                 expected_output=f"({question.target})",
                 metadata=None,
             )
-            for question in questions
+            for i, question in enumerate(questions)
         ]
 
         return Dataset[MMLUDataPoint](data_points=data_points, description=self.__doc__)
