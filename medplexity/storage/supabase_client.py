@@ -65,8 +65,7 @@ class TableWrapper:
 class BenchmarkDB(TableWrapper):
     table_name = "benchmarks"
 
-    def insert(self, id: str, name: str, description: str, type: str):
-        values = {"id": id, "name": name, "description": description, "type": type}
+    def insert(self, values: dict):
         self.client.insert(self.table_name, values)
 
 
@@ -160,18 +159,14 @@ class SupabaseEvaluationSaver:
         self,
         file_name: str,
         model: str,
-        benchmark_id: str | None,
+        benchmark_id: str,
         split_type: str,
         subtype: str | None = None,
         new_benchmark_config: dict | None = None,
     ):
-        if benchmark_id is not None:
-            if not self.benchmark_db.check_id_exists(benchmark_id):
-                raise ValueError(f"Benchmark ID {benchmark_id} does not exist")
-        else:
+        if not self.benchmark_db.check_id_exists(benchmark_id) and new_benchmark_config:
             if new_benchmark_config:
-                benchmark_id = str(uuid.uuid4())
-                self.benchmark_db.insert(benchmark_id, **new_benchmark_config)
+                self.benchmark_db.insert(new_benchmark_config)
             else:
                 raise ValueError("No Benchmark ID or new benchmark config provided")
 
