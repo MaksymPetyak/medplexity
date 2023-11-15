@@ -4,6 +4,9 @@ from typing import Dict, Any, Optional
 import openai
 
 from medplexity.llms.llm import LLM
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class OpenAI(LLM):

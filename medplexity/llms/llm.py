@@ -1,4 +1,7 @@
 import abc
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class LLM(abc.ABC):

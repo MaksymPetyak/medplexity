@@ -3,6 +3,9 @@ import requests
 from typing import Dict, Any, Optional
 
 from medplexity.llms.llm import LLM
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class Deepinfra(LLM):
