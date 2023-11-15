@@ -13,6 +13,8 @@ openai = "^0.28.0"
 datasets = "^2.14.5"
 langchain = {version = "^0.0.306", optional = true}
 google-search-results = {version = "^2.4.2", optional = true}
+supabase = {version = "^2.0.3", optional = true}
+python-dotenv = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 jupyter = "^1.0.0"
@@ -31,6 +33,7 @@ mkdocs-material = "^9.4.3"
 [tool.poetry.extras]
 langchain = ["langchain"]
 google-search-results = ["google-search-results"]
+supabase = ["supabase"]
 
 [build-system]
 requires = ["poetry-core"]
