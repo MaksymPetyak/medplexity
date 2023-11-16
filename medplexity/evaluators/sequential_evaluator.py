@@ -61,6 +61,7 @@ class SequentialEvaluator(Evaluator):
 
                 results.evaluation_results.append(
                     EvaluationResult(
+                        id=data_point.id,
                         input=data_point.input,
                         input_metadata=data_point.metadata,
                         expected_output=data_point.expected_output,

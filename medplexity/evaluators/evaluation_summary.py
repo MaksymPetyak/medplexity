@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 
 class EvaluationResult(BaseModel):
+    id: str
     input: Any
     input_metadata: Any
     expected_output: Any
