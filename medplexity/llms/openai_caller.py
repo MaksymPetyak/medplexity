@@ -1,7 +1,6 @@
-import os
 from typing import Dict, Any, Optional
 
-import openai
+from openai import Client
 
 from medplexity.llms.llm import LLM
 from dotenv import load_dotenv
@@ -17,7 +16,6 @@ class OpenAI(LLM):
     supported completion model.
     The list of supported Chat models includes ["gpt-4", "gpt-4-0314", "gpt-4-32k",
      "gpt-4-32k-0314","gpt-3.5-turbo", "gpt-3.5-turbo-0301"].
-
     """
 
     api_token: str
@@ -41,14 +39,16 @@ class OpenAI(LLM):
         "gpt-3.5-turbo-0613",
         "gpt-3.5-turbo-16k-0613",
     ]
-    _supported_completion_models = ["text-davinci-003"]
+
+    _supported_vision_models = [
+        "gpt-4-vision-preview",
+    ]
 
     model: str = "gpt-3.5-turbo"
 
     def __init__(
         self,
         api_token: Optional[str] = None,
-        api_key_path: Optional[str] = None,
         **kwargs,
     ):
         """
@@ -59,22 +59,11 @@ class OpenAI(LLM):
             **kwargs: Extended Parameters inferred from BaseOpenAI class
 
         """
-        self.api_token = api_token or os.getenv("OPENAI_API_KEY") or None
-        self.api_key_path = api_key_path
-
-        if (not self.api_token) and (not self.api_key_path):
-            raise ValueError("Either OpenAI API key or key path is required")
-
-        if self.api_token:
-            openai.api_key = self.api_token
-        else:
-            openai.api_key_path = self.api_key_path
-
-        self.openai_proxy = kwargs.get("openai_proxy") or os.getenv("OPENAI_PROXY")
-        if self.openai_proxy:
-            openai.proxy = {"http": self.openai_proxy, "https": self.openai_proxy}
-
         self._set_params(**kwargs)
+
+        self._client = Client(
+            api_key=api_token,
+        )
 
     def _set_params(self, **kwargs):
         """
@@ -114,29 +103,41 @@ class OpenAI(LLM):
             "presence_penalty": self.presence_penalty,
         }
 
-    def completion(self, prompt: str) -> str:
-        params = {**self._default_params, "prompt": prompt}
-
-        response = openai.Completion.create(**params)
-
-        return response["choices"][0]["text"]
-
     def chat_completion(self, value: str) -> str:
-        params = {
+        completion = self._client.chat.completions.create(
             **self._default_params,
-            "messages": [
+            messages=[
                 {
                     "role": "system",
                     "content": value,
                 }
             ],
-        }
+        )
 
-        response = openai.ChatCompletion.create(**params)
+        return completion.choices[0].message.content
 
-        return response["choices"][0]["message"]["content"]
+    def vision_completion(self, last_prompt: str, image_url: str) -> str:
+        completion = self._client.chat.completions.create(
+            **self._default_params,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": last_prompt},
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": image_url,
+                            },
+                        },
+                    ],
+                }
+            ],
+        )
 
-    def __call__(self, instruction: str, suffix: str = "") -> str:
+        return completion.choices[0].message.content
+
+    def __call__(self, instruction: str, suffix: str = "", image=None) -> str:
         """
         Call the OpenAI LLM.
 
@@ -146,13 +147,16 @@ class OpenAI(LLM):
 
         Returns:
             str: Response
+            :param image:
         """
         self.last_prompt = instruction + suffix
 
-        if self.model in self._supported_completion_models:
-            response = self.completion(self.last_prompt)
-        elif self.model in self._supported_chat_models:
+        if self.model in self._supported_chat_models:
             response = self.chat_completion(self.last_prompt)
+        elif self.model in self._supported_vision_models:
+            if image is None:
+                raise ValueError("Image is required for vision model")
+            response = self.vision_completion(self.last_prompt, image)
         else:
             raise ValueError("Unsupported model")
 

@@ -92,7 +92,7 @@ class Deepinfra(LLM):
 
         return response.json()["results"][0]["generated_text"]
 
-    def __call__(self, instruction: str, suffix: str = "") -> str:
+    def __call__(self, instruction: str, suffix: str = "", image=None) -> str:
         self.last_prompt = instruction + suffix
         response = self.completion(self.last_prompt)
         return response
