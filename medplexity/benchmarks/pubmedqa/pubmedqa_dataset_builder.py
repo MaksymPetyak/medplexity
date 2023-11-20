@@ -53,7 +53,7 @@ class PubmedQADatasetBuilder(DatasetBuilder):
     - pqa_labeled: 1k expert-annotated questions
     - pqa_unlabeled: 61.2k unlabeled questions
 
-    Dataset version used: `https://huggingface.co/datasets/pubmed_qa`
+    Dataset version used: <https://huggingface.co/datasets/pubmed_qa>
     """
 
     EXAMPLE_QUESTIONS_PATH = Path(__file__).resolve().parent / "examples.json"
