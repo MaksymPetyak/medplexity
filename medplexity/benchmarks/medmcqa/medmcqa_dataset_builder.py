@@ -63,7 +63,7 @@ class MedMCQADatasetBuilder(DatasetBuilder):
                 ),
             )
             for question in dataset
-            if question.cop is not None
+            if question.cop is not None and question.cop != -1
         ]
 
         return Dataset[MedMCQADataPoint](
