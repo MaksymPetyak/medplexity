@@ -4,19 +4,40 @@ from typing import List
 from pydantic import BaseModel, Field
 
 from medplexity.chains.chain import Chain
-from medplexity.chains.llm_chain import LLMChain
-from medplexity.llms.deepinfra import Deepinfra
+from medplexity.chains.vqa_chain import VQAChain
 from medplexity.llms.llm import LLM
 from medplexity.llms.openai_caller import OpenAI
 from medplexity.benchmarks.dataset_factory import DatasetFactory
 from medplexity.medharness import Medharness
-from medplexity.prompts.medical_assistant_prompt_template import (
-    MedicalAssistantPromptTemplate,
-)
-from medplexity.prompts.multiple_choice_prompt import MultipleChoiceChainOfThoughtPrompt
+from medplexity.prompts.vqa_prompt import VQAPromptTemplate
 from medplexity.storage.supabase_client import SupabaseEvaluationSaver
 
 from datetime import datetime
+
+
+DATASET = "vqarad"
+SPLIT_TYPE = "test"
+
+prompt = VQAPromptTemplate()
+
+llms: List[LLM] = [
+    OpenAI(
+        model="gpt-4-vision-preview",
+        temperature=0,
+    ),
+    # OpenAI(
+    #     model="gpt-4-1106-preview",
+    #     temperature=0,
+    # ),
+    # Deepinfra(
+    #     model="llama-2-70b-chat-hf",
+    #     temperature=0.01,
+    # ),
+    # Deepinfra(
+    #     model="mistral-7b-instruct",
+    #     temperature=0.01,
+    # ),
+]
 
 
 class RunConfig(BaseModel):
@@ -27,35 +48,19 @@ class RunConfig(BaseModel):
     prompt_template: str
     experiment_id: uuid.UUID = Field(default_factory=uuid.uuid4)
 
-    K: int = 25
+    K: int = 20
     ignore_errors: bool = True
 
     class Config:
         arbitrary_types_allowed = True
 
 
-llms: List[LLM] = [
-    OpenAI(
-        model="gpt-4",
-        temperature=0,
-    ),
-    Deepinfra(
-        model="llama-2-70b-chat-hf",
-        temperature=0.01,
-    ),
-    Deepinfra(
-        model="mistral-7b-instruct",
-        temperature=0.01,
-    ),
-]
-
 chains: List[Chain] = []
+
 for llm in llms:
     chains.append(
-        LLMChain(
+        VQAChain(
             llm=llm,
-            prompt=MedicalAssistantPromptTemplate(),
-            save_prompt=True,
         )
     )
 
@@ -66,9 +71,9 @@ for chain in chains:
         RunConfig(
             chain=chain,
             model=chain.llm.model,
-            dataset="medicationqa",
-            split_type="train",
-            prompt_template=MultipleChoiceChainOfThoughtPrompt.PROMPT,
+            dataset=DATASET,
+            split_type=SPLIT_TYPE,
+            prompt_template=prompt.PROMPT,
         )
     )
 

@@ -1,21 +1,23 @@
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Literal
+from PIL.Image import Image
 
 from openai import Client
 
 from medplexity.llms.llm import LLM
 from dotenv import load_dotenv
 
+from medplexity.llms.utils import encode_image_base_64
+
 load_dotenv()
+
+ImageDetailLevel = Literal["low", "high", "auto"]
 
 
 class OpenAI(LLM):
     """OpenAI LLM using BaseOpenAI Class.
 
     An API call to OpenAI API is sent and response is recorded and returned.
-    The default chat model is **gpt-3.5-turbo** while **text-davinci-003** is only
-    supported completion model.
-    The list of supported Chat models includes ["gpt-4", "gpt-4-0314", "gpt-4-32k",
-     "gpt-4-32k-0314","gpt-3.5-turbo", "gpt-3.5-turbo-0301"].
+    The default chat model is **gpt-3.5-turbo**.
     """
 
     api_token: str
@@ -27,6 +29,7 @@ class OpenAI(LLM):
     stop: Optional[str] = None
     # support explicit proxy for OpenAI
     openai_proxy: Optional[str] = None
+    detail_level: ImageDetailLevel | None = None
 
     _supported_chat_models = [
         "gpt-4-1106-preview",
@@ -49,6 +52,7 @@ class OpenAI(LLM):
     def __init__(
         self,
         api_token: Optional[str] = None,
+        detail_level: ImageDetailLevel | None = None,
         **kwargs,
     ):
         """
@@ -60,6 +64,7 @@ class OpenAI(LLM):
 
         """
         self._set_params(**kwargs)
+        self.detail_level = detail_level
 
         self._client = Client(
             api_key=api_token,
@@ -116,28 +121,40 @@ class OpenAI(LLM):
 
         return completion.choices[0].message.content
 
-    def vision_completion(self, last_prompt: str, image_url: str) -> str:
+    def vision_completion(
+        self,
+        last_prompt: str,
+        image: Image,
+        detail_level: ImageDetailLevel | None = None,
+    ) -> str:
+        content = [{"type": "text", "text": last_prompt}]
+
+        if image is not None:
+            content.append(
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{encode_image_base_64(image)}",
+                        "detail": detail_level or "auto",
+                    },
+                }
+            )
+
         completion = self._client.chat.completions.create(
             **self._default_params,
             messages=[
                 {
                     "role": "user",
-                    "content": [
-                        {"type": "text", "text": last_prompt},
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": image_url,
-                            },
-                        },
-                    ],
+                    "content": content,
                 }
             ],
         )
 
         return completion.choices[0].message.content
 
-    def __call__(self, instruction: str, suffix: str = "", image=None) -> str:
+    def __call__(
+        self, instruction: str, suffix: str = "", image: Image | None = None
+    ) -> str:
         """
         Call the OpenAI LLM.
 
@@ -152,10 +169,12 @@ class OpenAI(LLM):
         self.last_prompt = instruction + suffix
 
         if self.model in self._supported_chat_models:
+            if image is not None:
+                raise ValueError(
+                    "Trying to pass image input to a model that does not support it"
+                )
             response = self.chat_completion(self.last_prompt)
         elif self.model in self._supported_vision_models:
-            if image is None:
-                raise ValueError("Image is required for vision model")
             response = self.vision_completion(self.last_prompt, image)
         else:
             raise ValueError("Unsupported model")

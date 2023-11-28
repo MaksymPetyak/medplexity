@@ -11,6 +11,7 @@ from medplexity.benchmarks.mts_dialog import MTSDialogDatasetBuilder
 from medplexity.benchmarks.pubmedqa.pubmedqa_dataset_builder import (
     PubmedQADatasetBuilder,
 )
+from medplexity.benchmarks.vqarad import VQARadDatasetBuilder
 
 
 class DatasetFactory:
@@ -22,6 +23,7 @@ class DatasetFactory:
         "mmlu": MMLUDatasetBuilder(),
         "pubmedqa": PubmedQADatasetBuilder(),
         "mts-dialog": MTSDialogDatasetBuilder(),
+        "vqarad": VQARadDatasetBuilder(),
     }
 
     def build(self, name: str, split_type: str, config: dict | None = None):
