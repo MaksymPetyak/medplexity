@@ -30,7 +30,7 @@ class MedMCQADatasetBuilder(DatasetBuilder):
     """Multiple-choice questions designed to address real-world medical entrance exam questions like AIIMS & NEET PG.
     This dataset encompasses over 194k high-quality MCQs spanning 2.4k healthcare topics and 21 medical subjects. Questions are accompanied by an explanation of the correct answer.
 
-    Original paper: MedMCQA: A Large-scale Multi-Subject Multi-Choice Dataset for Medical domain Question Answering
+    Paper: MedMCQA: A Large-scale Multi-Subject Multi-Choice Dataset for Medical domain Question Answering
 
     2022 · Ankit Pal, Logesh Kumar Umapathi, Malaikannan Sankarasubbu
     <https://arxiv.org/abs/2203.14371>

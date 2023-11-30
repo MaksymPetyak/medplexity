@@ -28,7 +28,7 @@ class MedQADataPoint(DataPoint):
 class MedQADatasetBuilder(DatasetBuilder):
     """Multiple-choice questions based on the United States Medical License Exams (USMLE).
 
-    Original paper: What Disease does this Patient Have? A Large-scale Open Domain Question Answering Dataset from Medical Exams
+    Paper: What Disease does this Patient Have? A Large-scale Open Domain Question Answering Dataset from Medical Exams
 
     28 Sep 2020 · Di Jin, Eileen Pan, Nassim Oufattole, Wei-Hung Weng, Hanyi Fang, Peter Szolovits
     <https://arxiv.org/abs/2009.13081>

@@ -35,7 +35,7 @@ class VQARadDatasetBuilder(DatasetBuilder):
 
     Train/test splits available.
 
-    Original paper: "A dataset of clinically generated visual questions and answers about radiology images"
+    Paper: "A dataset of clinically generated visual questions and answers about radiology images"
      · 2018 · Jason J. Lau, Soumya Gayen, Asma Ben Abacha, Dina Demner-Fushman
     <https://www.nature.com/articles/sdata2018251>
 

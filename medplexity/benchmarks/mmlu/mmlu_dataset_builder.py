@@ -36,7 +36,7 @@ class MMLUDatasetBuilder(DatasetBuilder):
     - College biology
     - College medicine
 
-    Original paper: MMLU: Massive Multitask Language Understanding
+    Paper: MMLU: Massive Multitask Language Understanding
 
     7 Sep 2020  ·  Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, Jacob Steinhardt
     <https://arxiv.org/abs/2009.03300>

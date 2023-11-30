@@ -41,7 +41,7 @@ class PubmedQADataPoint(DataPoint):
 class PubmedQADatasetBuilder(DatasetBuilder):
     """PubMedQA is a biomedical QA dataset designed to answer research questions with yes/no/maybe. The dataset consists of 1k expert-annotated questions, 61.2k unlabeled questions, and an additional 211.3k artificially generated QA instances. Every instance contains a question sourced or derived from a research article title, context from the abstract without its conclusion, a long answer in the form of the abstract's conclusion, and a summarized yes/no/maybe answer.
 
-    Original paper: PubMedQA: A Dataset for Biomedical Research Question Answering
+    Paper: PubMedQA: A Dataset for Biomedical Research Question Answering
 
     13 Sep 2019 · Qiao Jin, Bhuwan Dhingra, Zhengping Liu, William W. Cohen, Xinghua Lu
     <https://arxiv.org/abs/1909.06146>

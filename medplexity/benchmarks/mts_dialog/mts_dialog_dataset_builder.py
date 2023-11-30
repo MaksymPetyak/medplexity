@@ -59,7 +59,7 @@ class MTSDialogDatasetBuilder(DatasetBuilder):
 
         2. MTS-Dialog-TestSet-2-MEDIQA-Sum-2023.csv: Used as the official test set for the MEDIQA-Sum 2023 challenge (Task A & Task B), emphasizing the summary generation from medical dialogues.
 
-    Original paper: "MTS-Dialog: A New Dataset for Medical Training Summarization in Doctor-Patient Conversations" - <https://aclanthology.org/2023.eacl-main.1681>
+    Paper: "MTS-Dialog: A New Dataset for Medical Training Summarization in Doctor-Patient Conversations" - <https://aclanthology.org/2023.eacl-main.1681>
 
     Authors: Asma Ben Abacha, Wen-wai Yim, Yadan Fan, Thomas Lin
 
