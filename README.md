@@ -49,30 +49,6 @@ pre-commit install
 
 Feel free to raise any questions on [Discord](https://discord.gg/pJVdf9VY)
 
-## Todos
-Some initial todos include:
-- [x] Multiple-Choice datasets
-  - [x] Add MedMCQA dataset
-  - [x] Add PubMedQA dataset
-  - [x] Add MedQA dataset
-  - [x] Add MMLU dataset
-- [ ] Long-form question answering datasets
-  - [x] Add HealthSearchQA dataset
-  - [x] Add MedicationQA dataset
-  - [ ] Add LiveQA dataset
-- [ ] Explore datasets for multi-modality, specifically vision tasks for GPT-4V.
-- [ ] LLMs
-    - [x] Wrapper for OpenAI
-    - [x] Wrapper for deepinfra
-    - [ ] Wrapper for Google PALM
-    - [ ] Wrapper for HuggingFace text-gen
-- [x] Jupyter notebook quickstart
-- [x] Example with langchain integration
-- [x] Visualisation of results
-  - [x] Add export of evaluations
-  - [x] Frontend for exploring exported results
-
-
 ## Explorer
 In addition to the library, we are also building a web app to explore the results of evaluations.
 The explorer is available at [medplexityai.com](https://www.medplexityai.com/).
